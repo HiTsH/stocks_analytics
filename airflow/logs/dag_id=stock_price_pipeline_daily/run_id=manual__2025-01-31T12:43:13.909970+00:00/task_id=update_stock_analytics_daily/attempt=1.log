@@ -1,0 +1,120 @@
+[2025-01-31T12:43:46.132+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: stock_price_pipeline_daily.update_stock_analytics_daily manual__2025-01-31T12:43:13.909970+00:00 [queued]>
+[2025-01-31T12:43:46.142+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: stock_price_pipeline_daily.update_stock_analytics_daily manual__2025-01-31T12:43:13.909970+00:00 [queued]>
+[2025-01-31T12:43:46.143+0000] {taskinstance.py:1361} INFO - Starting attempt 1 of 2
+[2025-01-31T12:43:46.163+0000] {taskinstance.py:1382} INFO - Executing <Task(SQLExecuteQueryOperator): update_stock_analytics_daily> on 2025-01-31 12:43:13.909970+00:00
+[2025-01-31T12:43:46.167+0000] {standard_task_runner.py:57} INFO - Started process 99 to run task
+[2025-01-31T12:43:46.171+0000] {standard_task_runner.py:84} INFO - Running: ['airflow', 'tasks', 'run', 'stock_price_pipeline_daily', 'update_stock_analytics_daily', 'manual__2025-01-31T12:43:13.909970+00:00', '--job-id', '4', '--raw', '--subdir', 'DAGS_FOLDER/stock_pipeline_dag.py', '--cfg-path', '/tmp/tmpv141cwfa']
+[2025-01-31T12:43:46.173+0000] {standard_task_runner.py:85} INFO - Job 4: Subtask update_stock_analytics_daily
+[2025-01-31T12:43:46.223+0000] {task_command.py:415} INFO - Running <TaskInstance: stock_price_pipeline_daily.update_stock_analytics_daily manual__2025-01-31T12:43:13.909970+00:00 [running]> on host 0ffc706f1927
+[2025-01-31T12:43:47.031+0000] {taskinstance.py:1660} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='stock_price_pipeline_daily' AIRFLOW_CTX_TASK_ID='update_stock_analytics_daily' AIRFLOW_CTX_EXECUTION_DATE='2025-01-31T12:43:13.909970+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2025-01-31T12:43:13.909970+00:00'
+[2025-01-31T12:43:47.033+0000] {sql.py:274} INFO - Executing: INSERT INTO final.daily_analytics (
+    symbol, date, open, high, low, close, volume, price_change_pct_daily, moving_avg_50d, moving_avg_200d, volume_avg_20d, last_refreshed
+)
+SELECT
+    symbol,
+    date,
+    open_price AS open,
+    high_price AS high,
+    low_price AS low,
+    close_price AS close,
+    volume::BIGINT,
+    ROUND(
+        (
+            (close_price - LAG(close_price) OVER (PARTITION BY symbol ORDER BY date)) /
+            NULLIF(LAG(close_price) OVER (PARTITION BY symbol ORDER BY date), 0)
+        ) * 100, 2
+    ) AS price_change_pct_daily,
+    ROUND(
+        AVG(close_price) OVER (
+            PARTITION BY symbol 
+            ORDER BY date 
+            ROWS BETWEEN 49 PRECEDING AND CURRENT ROW
+        ), 2
+    ) AS moving_avg_50d,
+    ROUND(
+        AVG(close_price) OVER (
+            PARTITION BY symbol 
+            ORDER BY date 
+            ROWS BETWEEN 199 PRECEDING AND CURRENT ROW
+        ), 2
+    ) AS moving_avg_200d,
+    ROUND(
+        AVG(volume) OVER (
+            PARTITION BY symbol 
+            ORDER BY date 
+            ROWS BETWEEN 19 PRECEDING AND CURRENT ROW
+        ), 2
+    ) AS volume_avg_20d,
+    CURRENT_TIMESTAMP AS last_refreshed
+FROM staging.stock_prices_daily
+ON CONFLICT (symbol, date) DO UPDATE SET
+    open = EXCLUDED.open,
+    high = EXCLUDED.high,
+    low = EXCLUDED.low,
+    close = EXCLUDED.close,
+    volume = EXCLUDED.volume,
+    price_change_pct_daily = EXCLUDED.price_change_pct_daily,
+    moving_avg_50d = EXCLUDED.moving_avg_50d,
+    moving_avg_200d = EXCLUDED.moving_avg_200d,
+    volume_avg_20d = EXCLUDED.volume_avg_20d,
+    last_refreshed = EXCLUDED.last_refreshed
+WHERE final.daily_analytics.last_refreshed < EXCLUDED.last_refreshed;
+[2025-01-31T12:43:47.036+0000] {crypto.py:82} WARNING - empty cryptography key - values will not be stored encrypted.
+[2025-01-31T12:43:47.038+0000] {base.py:73} INFO - Using connection ID 'postgres_default' for task execution.
+[2025-01-31T12:43:47.331+0000] {base.py:73} INFO - Using connection ID 'postgres_default' for task execution.
+[2025-01-31T12:43:47.371+0000] {sql.py:418} INFO - Running statement: INSERT INTO final.daily_analytics (
+    symbol, date, open, high, low, close, volume, price_change_pct_daily, moving_avg_50d, moving_avg_200d, volume_avg_20d, last_refreshed
+)
+SELECT
+    symbol,
+    date,
+    open_price AS open,
+    high_price AS high,
+    low_price AS low,
+    close_price AS close,
+    volume::BIGINT,
+    ROUND(
+        (
+            (close_price - LAG(close_price) OVER (PARTITION BY symbol ORDER BY date)) /
+            NULLIF(LAG(close_price) OVER (PARTITION BY symbol ORDER BY date), 0)
+        ) * 100, 2
+    ) AS price_change_pct_daily,
+    ROUND(
+        AVG(close_price) OVER (
+            PARTITION BY symbol 
+            ORDER BY date 
+            ROWS BETWEEN 49 PRECEDING AND CURRENT ROW
+        ), 2
+    ) AS moving_avg_50d,
+    ROUND(
+        AVG(close_price) OVER (
+            PARTITION BY symbol 
+            ORDER BY date 
+            ROWS BETWEEN 199 PRECEDING AND CURRENT ROW
+        ), 2
+    ) AS moving_avg_200d,
+    ROUND(
+        AVG(volume) OVER (
+            PARTITION BY symbol 
+            ORDER BY date 
+            ROWS BETWEEN 19 PRECEDING AND CURRENT ROW
+        ), 2
+    ) AS volume_avg_20d,
+    CURRENT_TIMESTAMP AS last_refreshed
+FROM staging.stock_prices_daily
+ON CONFLICT (symbol, date) DO UPDATE SET
+    open = EXCLUDED.open,
+    high = EXCLUDED.high,
+    low = EXCLUDED.low,
+    close = EXCLUDED.close,
+    volume = EXCLUDED.volume,
+    price_change_pct_daily = EXCLUDED.price_change_pct_daily,
+    moving_avg_50d = EXCLUDED.moving_avg_50d,
+    moving_avg_200d = EXCLUDED.moving_avg_200d,
+    volume_avg_20d = EXCLUDED.volume_avg_20d,
+    last_refreshed = EXCLUDED.last_refreshed
+WHERE final.daily_analytics.last_refreshed < EXCLUDED.last_refreshed;, parameters: None
+[2025-01-31T12:43:47.376+0000] {sql.py:427} INFO - Rows affected: 0
+[2025-01-31T12:43:47.386+0000] {taskinstance.py:1400} INFO - Marking task as SUCCESS. dag_id=stock_price_pipeline_daily, task_id=update_stock_analytics_daily, execution_date=20250131T124313, start_date=20250131T124346, end_date=20250131T124347
+[2025-01-31T12:43:47.434+0000] {local_task_job_runner.py:228} INFO - Task exited with return code 0
+[2025-01-31T12:43:47.453+0000] {taskinstance.py:2784} INFO - 0 downstream tasks scheduled from follow-on schedule check

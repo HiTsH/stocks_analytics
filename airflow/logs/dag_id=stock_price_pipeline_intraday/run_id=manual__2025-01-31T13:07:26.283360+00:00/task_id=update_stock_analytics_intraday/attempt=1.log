@@ -1,0 +1,86 @@
+[2025-01-31T13:08:00.238+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: stock_price_pipeline_intraday.update_stock_analytics_intraday manual__2025-01-31T13:07:26.283360+00:00 [queued]>
+[2025-01-31T13:08:00.247+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: stock_price_pipeline_intraday.update_stock_analytics_intraday manual__2025-01-31T13:07:26.283360+00:00 [queued]>
+[2025-01-31T13:08:00.247+0000] {taskinstance.py:1361} INFO - Starting attempt 1 of 2
+[2025-01-31T13:08:00.268+0000] {taskinstance.py:1382} INFO - Executing <Task(SQLExecuteQueryOperator): update_stock_analytics_intraday> on 2025-01-31 13:07:26.283360+00:00
+[2025-01-31T13:08:00.273+0000] {standard_task_runner.py:57} INFO - Started process 159 to run task
+[2025-01-31T13:08:00.277+0000] {standard_task_runner.py:84} INFO - Running: ['airflow', 'tasks', 'run', 'stock_price_pipeline_intraday', 'update_stock_analytics_intraday', 'manual__2025-01-31T13:07:26.283360+00:00', '--job-id', '7', '--raw', '--subdir', 'DAGS_FOLDER/stock_pipeline_dag.py', '--cfg-path', '/tmp/tmpjgmvvmr4']
+[2025-01-31T13:08:00.279+0000] {standard_task_runner.py:85} INFO - Job 7: Subtask update_stock_analytics_intraday
+[2025-01-31T13:08:00.322+0000] {task_command.py:415} INFO - Running <TaskInstance: stock_price_pipeline_intraday.update_stock_analytics_intraday manual__2025-01-31T13:07:26.283360+00:00 [running]> on host ad5f6203a644
+[2025-01-31T13:08:00.803+0000] {taskinstance.py:1660} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='stock_price_pipeline_intraday' AIRFLOW_CTX_TASK_ID='update_stock_analytics_intraday' AIRFLOW_CTX_EXECUTION_DATE='2025-01-31T13:07:26.283360+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2025-01-31T13:07:26.283360+00:00'
+[2025-01-31T13:08:00.804+0000] {sql.py:274} INFO - Executing: INSERT INTO final.intraday_analytics (
+    symbol, timestamp, open, high, low, close, volume, prev_close, price_change_pct, vwap, last_refreshed
+)
+SELECT
+    symbol,
+    timestamp,
+    open_price AS open,
+    high_price AS high,
+    low_price AS low,
+    close_price AS close,
+    volume::BIGINT,
+    LAG(close_price) OVER (PARTITION BY symbol ORDER BY timestamp) AS prev_close,
+    ROUND(
+        (
+            (close_price - LAG(close_price) OVER (PARTITION BY symbol ORDER BY timestamp)) /
+            NULLIF(LAG(close_price) OVER (PARTITION BY symbol ORDER BY timestamp), 0)
+        ) * 100, 2
+    ) AS price_change_pct,
+    ROUND(
+        SUM(close_price * volume) OVER (PARTITION BY symbol, DATE(timestamp)) /
+        NULLIF(SUM(volume) OVER (PARTITION BY symbol, DATE(timestamp)), 0), 2
+    ) AS vwap,
+    CURRENT_TIMESTAMP AS last_refreshed
+FROM staging.stock_prices_5min
+ON CONFLICT (symbol, timestamp) DO UPDATE SET
+    open = EXCLUDED.open,
+    high = EXCLUDED.high,
+    low = EXCLUDED.low,
+    close = EXCLUDED.close,
+    volume = EXCLUDED.volume,
+    prev_close = EXCLUDED.prev_close,
+    price_change_pct = EXCLUDED.price_change_pct,
+    vwap = EXCLUDED.vwap,
+    last_refreshed = EXCLUDED.last_refreshed
+WHERE final.intraday_analytics.last_refreshed < EXCLUDED.last_refreshed;
+[2025-01-31T13:08:00.806+0000] {crypto.py:82} WARNING - empty cryptography key - values will not be stored encrypted.
+[2025-01-31T13:08:00.807+0000] {base.py:73} INFO - Using connection ID 'postgres_default' for task execution.
+[2025-01-31T13:08:01.000+0000] {base.py:73} INFO - Using connection ID 'postgres_default' for task execution.
+[2025-01-31T13:08:01.010+0000] {sql.py:418} INFO - Running statement: INSERT INTO final.intraday_analytics (
+    symbol, timestamp, open, high, low, close, volume, prev_close, price_change_pct, vwap, last_refreshed
+)
+SELECT
+    symbol,
+    timestamp,
+    open_price AS open,
+    high_price AS high,
+    low_price AS low,
+    close_price AS close,
+    volume::BIGINT,
+    LAG(close_price) OVER (PARTITION BY symbol ORDER BY timestamp) AS prev_close,
+    ROUND(
+        (
+            (close_price - LAG(close_price) OVER (PARTITION BY symbol ORDER BY timestamp)) /
+            NULLIF(LAG(close_price) OVER (PARTITION BY symbol ORDER BY timestamp), 0)
+        ) * 100, 2
+    ) AS price_change_pct,
+    ROUND(
+        SUM(close_price * volume) OVER (PARTITION BY symbol, DATE(timestamp)) /
+        NULLIF(SUM(volume) OVER (PARTITION BY symbol, DATE(timestamp)), 0), 2
+    ) AS vwap,
+    CURRENT_TIMESTAMP AS last_refreshed
+FROM staging.stock_prices_5min
+ON CONFLICT (symbol, timestamp) DO UPDATE SET
+    open = EXCLUDED.open,
+    high = EXCLUDED.high,
+    low = EXCLUDED.low,
+    close = EXCLUDED.close,
+    volume = EXCLUDED.volume,
+    prev_close = EXCLUDED.prev_close,
+    price_change_pct = EXCLUDED.price_change_pct,
+    vwap = EXCLUDED.vwap,
+    last_refreshed = EXCLUDED.last_refreshed
+WHERE final.intraday_analytics.last_refreshed < EXCLUDED.last_refreshed;, parameters: None
+[2025-01-31T13:08:01.017+0000] {sql.py:427} INFO - Rows affected: 300
+[2025-01-31T13:08:01.025+0000] {taskinstance.py:1400} INFO - Marking task as SUCCESS. dag_id=stock_price_pipeline_intraday, task_id=update_stock_analytics_intraday, execution_date=20250131T130726, start_date=20250131T130800, end_date=20250131T130801
+[2025-01-31T13:08:01.074+0000] {local_task_job_runner.py:228} INFO - Task exited with return code 0
+[2025-01-31T13:08:01.088+0000] {taskinstance.py:2784} INFO - 0 downstream tasks scheduled from follow-on schedule check

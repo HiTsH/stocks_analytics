@@ -1,0 +1,56 @@
+[2025-01-29T14:06:27.841+0000] {processor.py:157} INFO - Started process (PID=31) to work on /opt/airflow/dags/stock_pipeline_dag.py
+[2025-01-29T14:06:27.857+0000] {processor.py:829} INFO - Processing file /opt/airflow/dags/stock_pipeline_dag.py for tasks to queue
+[2025-01-29T14:06:27.863+0000] {logging_mixin.py:151} INFO - [2025-01-29T14:06:27.862+0000] {dagbag.py:539} INFO - Filling up the DagBag from /opt/airflow/dags/stock_pipeline_dag.py
+[2025-01-29T14:06:28.011+0000] {processor.py:839} INFO - DAG(s) dict_keys(['stock_price_pipeline_intraday', 'stock_price_pipeline_daily']) retrieved from /opt/airflow/dags/stock_pipeline_dag.py
+[2025-01-29T14:06:28.980+0000] {logging_mixin.py:151} INFO - [2025-01-29T14:06:28.980+0000] {manager.py:501} INFO - Created Permission View: can edit on DAG:stock_price_pipeline_intraday
+[2025-01-29T14:06:29.028+0000] {logging_mixin.py:151} INFO - [2025-01-29T14:06:29.027+0000] {manager.py:501} INFO - Created Permission View: can delete on DAG:stock_price_pipeline_intraday
+[2025-01-29T14:06:29.056+0000] {logging_mixin.py:151} INFO - [2025-01-29T14:06:29.055+0000] {manager.py:501} INFO - Created Permission View: can read on DAG:stock_price_pipeline_intraday
+[2025-01-29T14:06:29.161+0000] {logging_mixin.py:151} INFO - [2025-01-29T14:06:29.160+0000] {manager.py:501} INFO - Created Permission View: can edit on DAG:stock_price_pipeline_daily
+[2025-01-29T14:06:29.194+0000] {logging_mixin.py:151} INFO - [2025-01-29T14:06:29.193+0000] {manager.py:501} INFO - Created Permission View: can delete on DAG:stock_price_pipeline_daily
+[2025-01-29T14:06:29.216+0000] {logging_mixin.py:151} INFO - [2025-01-29T14:06:29.215+0000] {manager.py:501} INFO - Created Permission View: can read on DAG:stock_price_pipeline_daily
+[2025-01-29T14:06:29.234+0000] {logging_mixin.py:151} INFO - [2025-01-29T14:06:29.233+0000] {dag.py:2907} INFO - Sync 2 DAGs
+[2025-01-29T14:06:29.270+0000] {logging_mixin.py:151} INFO - [2025-01-29T14:06:29.269+0000] {dag.py:2929} INFO - Creating ORM DAG for stock_price_pipeline_intraday
+[2025-01-29T14:06:29.273+0000] {logging_mixin.py:151} INFO - [2025-01-29T14:06:29.272+0000] {dag.py:2929} INFO - Creating ORM DAG for stock_price_pipeline_daily
+[2025-01-29T14:06:29.308+0000] {logging_mixin.py:151} INFO - [2025-01-29T14:06:29.308+0000] {dag.py:3677} INFO - Setting next_dagrun for stock_price_pipeline_daily to 2025-01-30T00:00:00+00:00, run_after=2025-01-31T00:00:00+00:00
+[2025-01-29T14:06:29.315+0000] {logging_mixin.py:151} INFO - [2025-01-29T14:06:29.315+0000] {dag.py:3677} INFO - Setting next_dagrun for stock_price_pipeline_intraday to 2025-01-29T15:00:00+00:00, run_after=2025-01-29T16:00:00+00:00
+[2025-01-29T14:06:29.387+0000] {processor.py:179} INFO - Processing /opt/airflow/dags/stock_pipeline_dag.py took 1.580 seconds
+[2025-01-29T14:06:59.984+0000] {processor.py:157} INFO - Started process (PID=41) to work on /opt/airflow/dags/stock_pipeline_dag.py
+[2025-01-29T14:06:59.986+0000] {processor.py:829} INFO - Processing file /opt/airflow/dags/stock_pipeline_dag.py for tasks to queue
+[2025-01-29T14:06:59.987+0000] {logging_mixin.py:151} INFO - [2025-01-29T14:06:59.987+0000] {dagbag.py:539} INFO - Filling up the DagBag from /opt/airflow/dags/stock_pipeline_dag.py
+[2025-01-29T14:07:00.028+0000] {processor.py:839} INFO - DAG(s) dict_keys(['stock_price_pipeline_intraday', 'stock_price_pipeline_daily']) retrieved from /opt/airflow/dags/stock_pipeline_dag.py
+[2025-01-29T14:07:00.264+0000] {logging_mixin.py:151} INFO - [2025-01-29T14:07:00.264+0000] {dag.py:2907} INFO - Sync 2 DAGs
+[2025-01-29T14:07:00.295+0000] {logging_mixin.py:151} INFO - [2025-01-29T14:07:00.294+0000] {dag.py:3677} INFO - Setting next_dagrun for stock_price_pipeline_daily to 2025-01-30T00:00:00+00:00, run_after=2025-01-31T00:00:00+00:00
+[2025-01-29T14:07:00.301+0000] {logging_mixin.py:151} INFO - [2025-01-29T14:07:00.300+0000] {dag.py:3677} INFO - Setting next_dagrun for stock_price_pipeline_intraday to 2025-01-29T15:00:00+00:00, run_after=2025-01-29T16:00:00+00:00
+[2025-01-29T14:07:00.333+0000] {processor.py:179} INFO - Processing /opt/airflow/dags/stock_pipeline_dag.py took 0.355 seconds
+[2025-01-29T14:07:30.917+0000] {processor.py:157} INFO - Started process (PID=48) to work on /opt/airflow/dags/stock_pipeline_dag.py
+[2025-01-29T14:07:30.925+0000] {processor.py:829} INFO - Processing file /opt/airflow/dags/stock_pipeline_dag.py for tasks to queue
+[2025-01-29T14:07:30.930+0000] {logging_mixin.py:151} INFO - [2025-01-29T14:07:30.928+0000] {dagbag.py:539} INFO - Filling up the DagBag from /opt/airflow/dags/stock_pipeline_dag.py
+[2025-01-29T14:07:30.998+0000] {processor.py:839} INFO - DAG(s) dict_keys(['stock_price_pipeline_intraday', 'stock_price_pipeline_daily']) retrieved from /opt/airflow/dags/stock_pipeline_dag.py
+[2025-01-29T14:07:31.358+0000] {logging_mixin.py:151} INFO - [2025-01-29T14:07:31.358+0000] {dag.py:2907} INFO - Sync 2 DAGs
+[2025-01-29T14:07:31.448+0000] {logging_mixin.py:151} INFO - [2025-01-29T14:07:31.447+0000] {dag.py:3677} INFO - Setting next_dagrun for stock_price_pipeline_daily to 2025-01-30T00:00:00+00:00, run_after=2025-01-31T00:00:00+00:00
+[2025-01-29T14:07:31.465+0000] {logging_mixin.py:151} INFO - [2025-01-29T14:07:31.465+0000] {dag.py:3677} INFO - Setting next_dagrun for stock_price_pipeline_intraday to 2025-01-29T15:00:00+00:00, run_after=2025-01-29T16:00:00+00:00
+[2025-01-29T14:07:31.578+0000] {processor.py:179} INFO - Processing /opt/airflow/dags/stock_pipeline_dag.py took 0.676 seconds
+[2025-01-29T14:08:06.543+0000] {processor.py:157} INFO - Started process (PID=90) to work on /opt/airflow/dags/stock_pipeline_dag.py
+[2025-01-29T14:08:06.545+0000] {processor.py:829} INFO - Processing file /opt/airflow/dags/stock_pipeline_dag.py for tasks to queue
+[2025-01-29T14:08:06.546+0000] {logging_mixin.py:151} INFO - [2025-01-29T14:08:06.546+0000] {dagbag.py:539} INFO - Filling up the DagBag from /opt/airflow/dags/stock_pipeline_dag.py
+[2025-01-29T14:08:06.576+0000] {processor.py:839} INFO - DAG(s) dict_keys(['stock_price_pipeline_daily', 'stock_price_pipeline_intraday']) retrieved from /opt/airflow/dags/stock_pipeline_dag.py
+[2025-01-29T14:08:06.780+0000] {logging_mixin.py:151} INFO - [2025-01-29T14:08:06.780+0000] {dag.py:2907} INFO - Sync 2 DAGs
+[2025-01-29T14:08:06.812+0000] {logging_mixin.py:151} INFO - [2025-01-29T14:08:06.811+0000] {dag.py:3677} INFO - Setting next_dagrun for stock_price_pipeline_daily to 2025-01-30T00:00:00+00:00, run_after=2025-01-31T00:00:00+00:00
+[2025-01-29T14:08:06.817+0000] {logging_mixin.py:151} INFO - [2025-01-29T14:08:06.817+0000] {dag.py:3677} INFO - Setting next_dagrun for stock_price_pipeline_intraday to 2025-01-29T15:00:00+00:00, run_after=2025-01-29T16:00:00+00:00
+[2025-01-29T14:08:06.849+0000] {processor.py:179} INFO - Processing /opt/airflow/dags/stock_pipeline_dag.py took 0.311 seconds
+[2025-01-29T14:08:36.960+0000] {processor.py:157} INFO - Started process (PID=91) to work on /opt/airflow/dags/stock_pipeline_dag.py
+[2025-01-29T14:08:36.962+0000] {processor.py:829} INFO - Processing file /opt/airflow/dags/stock_pipeline_dag.py for tasks to queue
+[2025-01-29T14:08:36.963+0000] {logging_mixin.py:151} INFO - [2025-01-29T14:08:36.963+0000] {dagbag.py:539} INFO - Filling up the DagBag from /opt/airflow/dags/stock_pipeline_dag.py
+[2025-01-29T14:08:36.994+0000] {processor.py:839} INFO - DAG(s) dict_keys(['stock_price_pipeline_daily', 'stock_price_pipeline_intraday']) retrieved from /opt/airflow/dags/stock_pipeline_dag.py
+[2025-01-29T14:08:37.193+0000] {logging_mixin.py:151} INFO - [2025-01-29T14:08:37.193+0000] {dag.py:2907} INFO - Sync 2 DAGs
+[2025-01-29T14:08:37.228+0000] {logging_mixin.py:151} INFO - [2025-01-29T14:08:37.228+0000] {dag.py:3677} INFO - Setting next_dagrun for stock_price_pipeline_daily to 2025-01-30T00:00:00+00:00, run_after=2025-01-31T00:00:00+00:00
+[2025-01-29T14:08:37.234+0000] {logging_mixin.py:151} INFO - [2025-01-29T14:08:37.233+0000] {dag.py:3677} INFO - Setting next_dagrun for stock_price_pipeline_intraday to 2025-01-29T15:00:00+00:00, run_after=2025-01-29T16:00:00+00:00
+[2025-01-29T14:08:37.268+0000] {processor.py:179} INFO - Processing /opt/airflow/dags/stock_pipeline_dag.py took 0.313 seconds
+[2025-01-29T14:09:07.869+0000] {processor.py:157} INFO - Started process (PID=92) to work on /opt/airflow/dags/stock_pipeline_dag.py
+[2025-01-29T14:09:07.871+0000] {processor.py:829} INFO - Processing file /opt/airflow/dags/stock_pipeline_dag.py for tasks to queue
+[2025-01-29T14:09:07.872+0000] {logging_mixin.py:151} INFO - [2025-01-29T14:09:07.872+0000] {dagbag.py:539} INFO - Filling up the DagBag from /opt/airflow/dags/stock_pipeline_dag.py
+[2025-01-29T14:09:07.900+0000] {processor.py:839} INFO - DAG(s) dict_keys(['stock_price_pipeline_intraday', 'stock_price_pipeline_daily']) retrieved from /opt/airflow/dags/stock_pipeline_dag.py
+[2025-01-29T14:09:08.074+0000] {logging_mixin.py:151} INFO - [2025-01-29T14:09:08.073+0000] {dag.py:2907} INFO - Sync 2 DAGs
+[2025-01-29T14:09:08.114+0000] {logging_mixin.py:151} INFO - [2025-01-29T14:09:08.113+0000] {dag.py:3677} INFO - Setting next_dagrun for stock_price_pipeline_daily to 2025-01-30T00:00:00+00:00, run_after=2025-01-31T00:00:00+00:00
+[2025-01-29T14:09:08.119+0000] {logging_mixin.py:151} INFO - [2025-01-29T14:09:08.119+0000] {dag.py:3677} INFO - Setting next_dagrun for stock_price_pipeline_intraday to 2025-01-29T15:00:00+00:00, run_after=2025-01-29T16:00:00+00:00
+[2025-01-29T14:09:08.154+0000] {processor.py:179} INFO - Processing /opt/airflow/dags/stock_pipeline_dag.py took 0.289 seconds

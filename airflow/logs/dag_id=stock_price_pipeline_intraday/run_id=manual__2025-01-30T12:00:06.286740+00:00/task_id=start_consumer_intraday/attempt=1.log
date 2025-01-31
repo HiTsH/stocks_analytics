@@ -1,0 +1,78 @@
+[2025-01-30T12:00:24.764+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: stock_price_pipeline_intraday.start_consumer_intraday manual__2025-01-30T12:00:06.286740+00:00 [queued]>
+[2025-01-30T12:00:24.772+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: stock_price_pipeline_intraday.start_consumer_intraday manual__2025-01-30T12:00:06.286740+00:00 [queued]>
+[2025-01-30T12:00:24.773+0000] {taskinstance.py:1361} INFO - Starting attempt 1 of 2
+[2025-01-30T12:00:24.792+0000] {taskinstance.py:1382} INFO - Executing <Task(BashOperator): start_consumer_intraday> on 2025-01-30 12:00:06.286740+00:00
+[2025-01-30T12:00:24.796+0000] {standard_task_runner.py:57} INFO - Started process 100 to run task
+[2025-01-30T12:00:24.800+0000] {standard_task_runner.py:84} INFO - Running: ['airflow', 'tasks', 'run', 'stock_price_pipeline_intraday', 'start_consumer_intraday', 'manual__2025-01-30T12:00:06.286740+00:00', '--job-id', '4', '--raw', '--subdir', 'DAGS_FOLDER/stock_pipeline_dag.py', '--cfg-path', '/tmp/tmpqguhh6aj']
+[2025-01-30T12:00:24.801+0000] {standard_task_runner.py:85} INFO - Job 4: Subtask start_consumer_intraday
+[2025-01-30T12:00:24.842+0000] {task_command.py:415} INFO - Running <TaskInstance: stock_price_pipeline_intraday.start_consumer_intraday manual__2025-01-30T12:00:06.286740+00:00 [running]> on host 56eeb20f7fa3
+[2025-01-30T12:00:25.338+0000] {taskinstance.py:1660} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='stock_price_pipeline_intraday' AIRFLOW_CTX_TASK_ID='start_consumer_intraday' AIRFLOW_CTX_EXECUTION_DATE='2025-01-30T12:00:06.286740+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2025-01-30T12:00:06.286740+00:00'
+[2025-01-30T12:00:25.339+0000] {subprocess.py:63} INFO - Tmp dir root location: /tmp
+[2025-01-30T12:00:25.340+0000] {subprocess.py:75} INFO - Running command: ['/bin/bash', '-c', 'docker exec consumer-5min python kafka_consumer_5min.py']
+[2025-01-30T12:00:25.348+0000] {subprocess.py:86} INFO - Output:
+[2025-01-30T12:00:26.398+0000] {subprocess.py:93} INFO - INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=kafka:9092 <connecting> [IPv4 ('172.18.0.4', 9092)]>: connecting to kafka:9092 [('172.18.0.4', 9092) IPv4]
+[2025-01-30T12:00:26.399+0000] {subprocess.py:93} INFO - INFO:kafka.conn:Probing node bootstrap-0 broker version
+[2025-01-30T12:00:26.399+0000] {subprocess.py:93} INFO - INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=kafka:9092 <connecting> [IPv4 ('172.18.0.4', 9092)]>: Connection complete.
+[2025-01-30T12:00:26.503+0000] {subprocess.py:93} INFO - INFO:kafka.conn:Broker version identified as 2.5.0
+[2025-01-30T12:00:26.505+0000] {subprocess.py:93} INFO - INFO:kafka.conn:Set configuration api_version=(2, 5, 0) to skip auto check_version requests on startup
+[2025-01-30T12:00:26.505+0000] {subprocess.py:93} INFO - INFO:kafka.consumer.subscription_state:Updating subscribed topics to: ('stock_prices_5min',)
+[2025-01-30T12:00:26.800+0000] {subprocess.py:93} INFO - INFO:kafka.conn:<BrokerConnection node_id=1001 host=kafka:9092 <connecting> [IPv4 ('172.18.0.4', 9092)]>: connecting to kafka:9092 [('172.18.0.4', 9092) IPv4]
+[2025-01-30T12:00:26.802+0000] {subprocess.py:93} INFO - INFO:kafka.conn:<BrokerConnection node_id=1001 host=kafka:9092 <connecting> [IPv4 ('172.18.0.4', 9092)]>: Connection complete.
+[2025-01-30T12:00:26.804+0000] {subprocess.py:93} INFO - INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=kafka:9092 <connected> [IPv4 ('172.18.0.4', 9092)]>: Closing connection.
+[2025-01-30T12:00:28.068+0000] {subprocess.py:93} INFO - INFO:kafka.cluster:Group coordinator for stock_pipeline_5min is BrokerMetadata(nodeId='coordinator-1001', host='kafka', port=9092, rack=None)
+[2025-01-30T12:00:28.072+0000] {subprocess.py:93} INFO - INFO:kafka.coordinator:Discovered coordinator coordinator-1001 for group stock_pipeline_5min
+[2025-01-30T12:00:28.075+0000] {subprocess.py:93} INFO - INFO:kafka.coordinator:Starting new heartbeat thread
+[2025-01-30T12:00:28.081+0000] {subprocess.py:93} INFO - INFO:kafka.coordinator.consumer:Revoking previously assigned partitions set() for group stock_pipeline_5min
+[2025-01-30T12:00:28.082+0000] {subprocess.py:93} INFO - INFO:kafka.conn:<BrokerConnection node_id=coordinator-1001 host=kafka:9092 <connecting> [IPv4 ('172.18.0.4', 9092)]>: connecting to kafka:9092 [('172.18.0.4', 9092) IPv4]
+[2025-01-30T12:00:28.083+0000] {subprocess.py:93} INFO - INFO:kafka.conn:<BrokerConnection node_id=coordinator-1001 host=kafka:9092 <connecting> [IPv4 ('172.18.0.4', 9092)]>: Connection complete.
+[2025-01-30T12:00:28.170+0000] {subprocess.py:93} INFO - INFO:kafka.coordinator:(Re-)joining group stock_pipeline_5min
+[2025-01-30T12:00:31.214+0000] {subprocess.py:93} INFO - INFO:kafka.coordinator:Elected group leader -- performing partition assignments using range
+[2025-01-30T12:00:31.257+0000] {subprocess.py:93} INFO - INFO:kafka.coordinator:Successfully joined group stock_pipeline_5min with generation 1
+[2025-01-30T12:00:31.258+0000] {subprocess.py:93} INFO - INFO:kafka.consumer.subscription_state:Updated partition assignment: [TopicPartition(topic='stock_prices_5min', partition=0)]
+[2025-01-30T12:00:31.258+0000] {subprocess.py:93} INFO - INFO:kafka.coordinator.consumer:Setting newly assigned partitions {TopicPartition(topic='stock_prices_5min', partition=0)} for group stock_pipeline_5min
+[2025-01-30T12:00:31.432+0000] {subprocess.py:93} INFO - INFO:__main__:Inserted 100 rows into raw table for symbol: AAPL
+[2025-01-30T12:00:31.447+0000] {subprocess.py:93} INFO - ERROR:__main__:Error processing data for AAPL: subject table for an INSERT, UPDATE or DELETE expected, got    symbol           timestamp  open_price  ...  low_price  close_price  volume
+[2025-01-30T12:00:31.448+0000] {subprocess.py:93} INFO - 0    AAPL 2025-01-29 19:55:00      239.15  ...     238.91       239.26    5154
+[2025-01-30T12:00:31.448+0000] {subprocess.py:93} INFO - 1    AAPL 2025-01-29 19:50:00      239.17  ...     239.07       239.12    3953
+[2025-01-30T12:00:31.448+0000] {subprocess.py:93} INFO - 2    AAPL 2025-01-29 19:45:00      239.24  ...     239.16       239.21    4881
+[2025-01-30T12:00:31.449+0000] {subprocess.py:93} INFO - 3    AAPL 2025-01-29 19:40:00      239.15  ...     239.10       239.23    1467
+[2025-01-30T12:00:31.449+0000] {subprocess.py:93} INFO - 4    AAPL 2025-01-29 19:35:00      239.10  ...     239.10       239.10     966
+[2025-01-30T12:00:31.449+0000] {subprocess.py:93} INFO - ..    ...                 ...         ...  ...        ...          ...     ...
+[2025-01-30T12:00:31.450+0000] {subprocess.py:93} INFO - 95   AAPL 2025-01-29 12:00:00      236.54  ...     236.42       236.71  264478
+[2025-01-30T12:00:31.450+0000] {subprocess.py:93} INFO - 96   AAPL 2025-01-29 11:55:00      236.85  ...     236.13       236.54  304342
+[2025-01-30T12:00:31.450+0000] {subprocess.py:93} INFO - 97   AAPL 2025-01-29 11:50:00      236.84  ...     236.68       236.87  292339
+[2025-01-30T12:00:31.450+0000] {subprocess.py:93} INFO - 98   AAPL 2025-01-29 11:45:00      237.07  ...     236.71       236.83  331651
+[2025-01-30T12:00:31.451+0000] {subprocess.py:93} INFO - 99   AAPL 2025-01-29 11:40:00      236.82  ...     236.73       237.06  214240
+[2025-01-30T12:00:31.451+0000] {subprocess.py:93} INFO - 
+[2025-01-30T12:00:31.451+0000] {subprocess.py:93} INFO - [100 rows x 7 columns].
+[2025-01-30T12:00:31.498+0000] {subprocess.py:93} INFO - INFO:__main__:Inserted 100 rows into raw table for symbol: GOOGL
+[2025-01-30T12:00:31.511+0000] {subprocess.py:93} INFO - ERROR:__main__:Error processing data for GOOGL: subject table for an INSERT, UPDATE or DELETE expected, got    symbol           timestamp  open_price  ...  low_price  close_price  volume
+[2025-01-30T12:00:31.511+0000] {subprocess.py:93} INFO - 0   GOOGL 2025-01-29 19:55:00      197.51  ...     197.31       197.60   10744
+[2025-01-30T12:00:31.511+0000] {subprocess.py:93} INFO - 1   GOOGL 2025-01-29 19:50:00      197.50  ...     197.50       197.50    1734
+[2025-01-30T12:00:31.512+0000] {subprocess.py:93} INFO - 2   GOOGL 2025-01-29 19:45:00      197.07  ...     197.07       197.65   10573
+[2025-01-30T12:00:31.512+0000] {subprocess.py:93} INFO - 3   GOOGL 2025-01-29 19:40:00      197.18  ...     197.05       197.07    2521
+[2025-01-30T12:00:31.513+0000] {subprocess.py:93} INFO - 4   GOOGL 2025-01-29 19:35:00      197.15  ...     197.10       197.11    1543
+[2025-01-30T12:00:31.513+0000] {subprocess.py:93} INFO - ..    ...                 ...         ...  ...        ...          ...     ...
+[2025-01-30T12:00:31.513+0000] {subprocess.py:93} INFO - 95  GOOGL 2025-01-29 12:00:00      194.91  ...     194.89       194.96  110674
+[2025-01-30T12:00:31.514+0000] {subprocess.py:93} INFO - 96  GOOGL 2025-01-29 11:55:00      195.16  ...     194.81       194.91  110389
+[2025-01-30T12:00:31.514+0000] {subprocess.py:93} INFO - 97  GOOGL 2025-01-29 11:50:00      195.18  ...     195.09       195.21  114323
+[2025-01-30T12:00:31.514+0000] {subprocess.py:93} INFO - 98  GOOGL 2025-01-29 11:45:00      195.13  ...     194.93       195.17  122505
+[2025-01-30T12:00:31.514+0000] {subprocess.py:93} INFO - 99  GOOGL 2025-01-29 11:40:00      194.61  ...     194.60       195.13   78597
+[2025-01-30T12:00:31.515+0000] {subprocess.py:93} INFO - 
+[2025-01-30T12:00:31.515+0000] {subprocess.py:93} INFO - [100 rows x 7 columns].
+[2025-01-30T12:00:31.566+0000] {subprocess.py:93} INFO - INFO:__main__:Inserted 100 rows into raw table for symbol: MSFT
+[2025-01-30T12:00:31.581+0000] {subprocess.py:93} INFO - ERROR:__main__:Error processing data for MSFT: subject table for an INSERT, UPDATE or DELETE expected, got    symbol           timestamp  open_price  ...  low_price  close_price  volume
+[2025-01-30T12:00:31.582+0000] {subprocess.py:93} INFO - 0    MSFT 2025-01-29 19:55:00      421.91  ...     421.61       421.85   27311
+[2025-01-30T12:00:31.582+0000] {subprocess.py:93} INFO - 1    MSFT 2025-01-29 19:50:00      421.86  ...     421.54       421.86   19008
+[2025-01-30T12:00:31.583+0000] {subprocess.py:93} INFO - 2    MSFT 2025-01-29 19:45:00      421.60  ...     421.50       421.90   19726
+[2025-01-30T12:00:31.583+0000] {subprocess.py:93} INFO - 3    MSFT 2025-01-29 19:40:00      421.90  ...     421.53       421.60   11730
+[2025-01-30T12:00:31.584+0000] {subprocess.py:93} INFO - 4    MSFT 2025-01-29 19:35:00      421.70  ...     421.69       421.99   19607
+[2025-01-30T12:00:31.585+0000] {subprocess.py:93} INFO - ..    ...                 ...         ...  ...        ...          ...     ...
+[2025-01-30T12:00:31.586+0000] {subprocess.py:93} INFO - 95   MSFT 2025-01-29 12:00:00      443.84  ...     443.81       444.39  165580
+[2025-01-30T12:00:31.587+0000] {subprocess.py:93} INFO - 96   MSFT 2025-01-29 11:55:00      444.31  ...     443.36       443.86  137357
+[2025-01-30T12:00:31.587+0000] {subprocess.py:93} INFO - 97   MSFT 2025-01-29 11:50:00      444.23  ...     443.83       444.31  150686
+[2025-01-30T12:00:31.587+0000] {subprocess.py:93} INFO - 98   MSFT 2025-01-29 11:45:00      443.15  ...     443.10       444.18  139390
+[2025-01-30T12:00:31.588+0000] {subprocess.py:93} INFO - 99   MSFT 2025-01-29 11:40:00      442.46  ...     442.38       443.17   88683
+[2025-01-30T12:00:31.588+0000] {subprocess.py:93} INFO - 
+[2025-01-30T12:00:31.589+0000] {subprocess.py:93} INFO - [100 rows x 7 columns].
+[2025-01-30T12:19:08.845+0000] {local_task_job_runner.py:115} ERROR - Received SIGTERM. Terminating subprocesses

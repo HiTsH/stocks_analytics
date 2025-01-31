@@ -1,0 +1,115 @@
+[2025-01-27T14:33:43.659+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: stock_price_pipeline_daily.update_stock_analytics_daily manual__2025-01-27T14:28:29.798645+00:00 [queued]>
+[2025-01-27T14:33:43.666+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: stock_price_pipeline_daily.update_stock_analytics_daily manual__2025-01-27T14:28:29.798645+00:00 [queued]>
+[2025-01-27T14:33:43.667+0000] {taskinstance.py:1361} INFO - Starting attempt 2 of 2
+[2025-01-27T14:33:43.681+0000] {taskinstance.py:1382} INFO - Executing <Task(SQLExecuteQueryOperator): update_stock_analytics_daily> on 2025-01-27 14:28:29.798645+00:00
+[2025-01-27T14:33:43.684+0000] {standard_task_runner.py:57} INFO - Started process 196 to run task
+[2025-01-27T14:33:43.688+0000] {standard_task_runner.py:84} INFO - Running: ['airflow', 'tasks', 'run', 'stock_price_pipeline_daily', 'update_stock_analytics_daily', 'manual__2025-01-27T14:28:29.798645+00:00', '--job-id', '9', '--raw', '--subdir', 'DAGS_FOLDER/stock_pipeline_dag.py', '--cfg-path', '/tmp/tmpq_hy5cdg']
+[2025-01-27T14:33:43.689+0000] {standard_task_runner.py:85} INFO - Job 9: Subtask update_stock_analytics_daily
+[2025-01-27T14:33:43.728+0000] {task_command.py:415} INFO - Running <TaskInstance: stock_price_pipeline_daily.update_stock_analytics_daily manual__2025-01-27T14:28:29.798645+00:00 [running]> on host 5b265dbfb0e9
+[2025-01-27T14:33:44.162+0000] {taskinstance.py:1660} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='stock_price_pipeline_daily' AIRFLOW_CTX_TASK_ID='update_stock_analytics_daily' AIRFLOW_CTX_EXECUTION_DATE='2025-01-27T14:28:29.798645+00:00' AIRFLOW_CTX_TRY_NUMBER='2' AIRFLOW_CTX_DAG_RUN_ID='manual__2025-01-27T14:28:29.798645+00:00'
+[2025-01-27T14:33:44.163+0000] {sql.py:274} INFO - Executing: INSERT INTO final.daily_analytics (
+    symbol, date, open, high, low, close, volume, price_change_pct_daily, moving_avg_50d, moving_avg_200d, volume_avg_20d, last_refreshed
+)
+SELECT
+    symbol,
+    date,
+    open,
+    high,
+    low,
+    close,
+    volume::BIGINT,
+    ROUND(((close - LAG(close) OVER (PARTITION BY symbol ORDER BY date)) / 
+        NULLIF(LAG(close) OVER (PARTITION BY symbol ORDER BY date), 0)) * 100, 2) AS price_change_pct_daily,
+    ROUND(AVG(close) OVER (
+        PARTITION BY symbol 
+        ORDER BY date 
+        ROWS BETWEEN 49 PRECEDING AND CURRENT ROW
+    ), 2) AS moving_avg_50d,
+    ROUND(AVG(close) OVER (
+        PARTITION BY symbol 
+        ORDER BY date 
+        ROWS BETWEEN 199 PRECEDING AND CURRENT ROW
+    ), 2) AS moving_avg_200d,
+    ROUND(AVG(volume) OVER (
+        PARTITION BY symbol 
+        ORDER BY date 
+        ROWS BETWEEN 19 PRECEDING AND CURRENT ROW
+    ), 2) AS volume_avg_20d,
+    CURRENT_TIMESTAMP AS last_refreshed
+FROM staging.stock_prices_daily
+ON CONFLICT (symbol, date) DO UPDATE SET
+    open = EXCLUDED.open,
+    high = EXCLUDED.high,
+    low = EXCLUDED.low,
+    close = EXCLUDED.close,
+    volume = EXCLUDED.volume,
+    price_change_pct_daily = EXCLUDED.price_change_pct_daily,
+    moving_avg_50d = EXCLUDED.moving_avg_50d,
+    moving_avg_200d = EXCLUDED.moving_avg_200d,
+    volume_avg_20d = EXCLUDED.volume_avg_20d,
+    last_refreshed = EXCLUDED.last_refreshed;
+[2025-01-27T14:33:44.165+0000] {crypto.py:82} WARNING - empty cryptography key - values will not be stored encrypted.
+[2025-01-27T14:33:44.165+0000] {base.py:73} INFO - Using connection ID 'postgres_default' for task execution.
+[2025-01-27T14:33:44.339+0000] {base.py:73} INFO - Using connection ID 'postgres_default' for task execution.
+[2025-01-27T14:33:44.351+0000] {sql.py:418} INFO - Running statement: INSERT INTO final.daily_analytics (
+    symbol, date, open, high, low, close, volume, price_change_pct_daily, moving_avg_50d, moving_avg_200d, volume_avg_20d, last_refreshed
+)
+SELECT
+    symbol,
+    date,
+    open,
+    high,
+    low,
+    close,
+    volume::BIGINT,
+    ROUND(((close - LAG(close) OVER (PARTITION BY symbol ORDER BY date)) / 
+        NULLIF(LAG(close) OVER (PARTITION BY symbol ORDER BY date), 0)) * 100, 2) AS price_change_pct_daily,
+    ROUND(AVG(close) OVER (
+        PARTITION BY symbol 
+        ORDER BY date 
+        ROWS BETWEEN 49 PRECEDING AND CURRENT ROW
+    ), 2) AS moving_avg_50d,
+    ROUND(AVG(close) OVER (
+        PARTITION BY symbol 
+        ORDER BY date 
+        ROWS BETWEEN 199 PRECEDING AND CURRENT ROW
+    ), 2) AS moving_avg_200d,
+    ROUND(AVG(volume) OVER (
+        PARTITION BY symbol 
+        ORDER BY date 
+        ROWS BETWEEN 19 PRECEDING AND CURRENT ROW
+    ), 2) AS volume_avg_20d,
+    CURRENT_TIMESTAMP AS last_refreshed
+FROM staging.stock_prices_daily
+ON CONFLICT (symbol, date) DO UPDATE SET
+    open = EXCLUDED.open,
+    high = EXCLUDED.high,
+    low = EXCLUDED.low,
+    close = EXCLUDED.close,
+    volume = EXCLUDED.volume,
+    price_change_pct_daily = EXCLUDED.price_change_pct_daily,
+    moving_avg_50d = EXCLUDED.moving_avg_50d,
+    moving_avg_200d = EXCLUDED.moving_avg_200d,
+    volume_avg_20d = EXCLUDED.volume_avg_20d,
+    last_refreshed = EXCLUDED.last_refreshed;, parameters: None
+[2025-01-27T14:33:44.353+0000] {taskinstance.py:1943} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/providers/common/sql/operators/sql.py", line 280, in execute
+    output = hook.run(
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/providers/common/sql/hooks/sql.py", line 392, in run
+    self._run_command(cur, sql_statement, parameters)
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/providers/common/sql/hooks/sql.py", line 423, in _run_command
+    cur.execute(sql_statement)
+psycopg2.errors.UndefinedColumn: column "open" does not exist
+LINE 7:     open,
+            ^
+HINT:  There is a column named "open" in table "daily_analytics", but it cannot be referenced from this part of the query.
+
+[2025-01-27T14:33:44.361+0000] {taskinstance.py:1400} INFO - Marking task as FAILED. dag_id=stock_price_pipeline_daily, task_id=update_stock_analytics_daily, execution_date=20250127T142829, start_date=20250127T143343, end_date=20250127T143344
+[2025-01-27T14:33:44.375+0000] {standard_task_runner.py:104} ERROR - Failed to execute job 9 for task update_stock_analytics_daily (column "open" does not exist
+LINE 7:     open,
+            ^
+HINT:  There is a column named "open" in table "daily_analytics", but it cannot be referenced from this part of the query.
+; 196)
+[2025-01-27T14:33:44.401+0000] {local_task_job_runner.py:228} INFO - Task exited with return code 1
+[2025-01-27T14:33:44.415+0000] {taskinstance.py:2784} INFO - 0 downstream tasks scheduled from follow-on schedule check

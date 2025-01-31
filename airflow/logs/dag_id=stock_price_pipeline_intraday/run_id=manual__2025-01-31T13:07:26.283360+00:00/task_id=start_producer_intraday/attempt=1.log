@@ -1,0 +1,338 @@
+[2025-01-31T13:07:29.959+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: stock_price_pipeline_intraday.start_producer_intraday manual__2025-01-31T13:07:26.283360+00:00 [queued]>
+[2025-01-31T13:07:29.978+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: stock_price_pipeline_intraday.start_producer_intraday manual__2025-01-31T13:07:26.283360+00:00 [queued]>
+[2025-01-31T13:07:29.979+0000] {taskinstance.py:1361} INFO - Starting attempt 1 of 2
+[2025-01-31T13:07:30.007+0000] {taskinstance.py:1382} INFO - Executing <Task(BashOperator): start_producer_intraday> on 2025-01-31 13:07:26.283360+00:00
+[2025-01-31T13:07:30.012+0000] {standard_task_runner.py:57} INFO - Started process 118 to run task
+[2025-01-31T13:07:30.017+0000] {standard_task_runner.py:84} INFO - Running: ['airflow', 'tasks', 'run', 'stock_price_pipeline_intraday', 'start_producer_intraday', 'manual__2025-01-31T13:07:26.283360+00:00', '--job-id', '5', '--raw', '--subdir', 'DAGS_FOLDER/stock_pipeline_dag.py', '--cfg-path', '/tmp/tmpkq46riky']
+[2025-01-31T13:07:30.020+0000] {standard_task_runner.py:85} INFO - Job 5: Subtask start_producer_intraday
+[2025-01-31T13:07:30.109+0000] {task_command.py:415} INFO - Running <TaskInstance: stock_price_pipeline_intraday.start_producer_intraday manual__2025-01-31T13:07:26.283360+00:00 [running]> on host ad5f6203a644
+[2025-01-31T13:07:30.969+0000] {taskinstance.py:1660} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='stock_price_pipeline_intraday' AIRFLOW_CTX_TASK_ID='start_producer_intraday' AIRFLOW_CTX_EXECUTION_DATE='2025-01-31T13:07:26.283360+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2025-01-31T13:07:26.283360+00:00'
+[2025-01-31T13:07:30.971+0000] {subprocess.py:63} INFO - Tmp dir root location: /tmp
+[2025-01-31T13:07:30.972+0000] {subprocess.py:75} INFO - Running command: ['/bin/bash', '-c', 'docker exec producer-5min python kafka_producer_5min.py']
+[2025-01-31T13:07:30.983+0000] {subprocess.py:86} INFO - Output:
+[2025-01-31T13:07:31.685+0000] {subprocess.py:93} INFO - INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=kafka:9092 <connecting> [IPv4 ('172.18.0.4', 9092)]>: connecting to kafka:9092 [('172.18.0.4', 9092) IPv4]
+[2025-01-31T13:07:31.686+0000] {subprocess.py:93} INFO - INFO:kafka.conn:Probing node bootstrap-0 broker version
+[2025-01-31T13:07:31.686+0000] {subprocess.py:93} INFO - INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=kafka:9092 <connecting> [IPv4 ('172.18.0.4', 9092)]>: Connection complete.
+[2025-01-31T13:07:31.793+0000] {subprocess.py:93} INFO - INFO:kafka.conn:Broker version identified as 2.5.0
+[2025-01-31T13:07:31.794+0000] {subprocess.py:93} INFO - INFO:kafka.conn:Set configuration api_version=(2, 5, 0) to skip auto check_version requests on startup
+[2025-01-31T13:07:31.799+0000] {subprocess.py:93} INFO - INFO:__main__:Fetching data for symbol: AAPL
+[2025-01-31T13:07:32.244+0000] {subprocess.py:93} INFO - INFO:kafka.conn:<BrokerConnection node_id=1001 host=kafka:9092 <connecting> [IPv4 ('172.18.0.4', 9092)]>: connecting to kafka:9092 [('172.18.0.4', 9092) IPv4]
+[2025-01-31T13:07:32.245+0000] {subprocess.py:93} INFO - INFO:kafka.conn:<BrokerConnection node_id=1001 host=kafka:9092 <connecting> [IPv4 ('172.18.0.4', 9092)]>: Connection complete.
+[2025-01-31T13:07:32.245+0000] {subprocess.py:93} INFO - INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=kafka:9092 <connected> [IPv4 ('172.18.0.4', 9092)]>: Closing connection.
+[2025-01-31T13:07:32.376+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: AAPL, timestamp: 2025-01-30 19:55:00
+[2025-01-31T13:07:32.378+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: AAPL, timestamp: 2025-01-30 19:50:00
+[2025-01-31T13:07:32.379+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: AAPL, timestamp: 2025-01-30 19:45:00
+[2025-01-31T13:07:32.380+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: AAPL, timestamp: 2025-01-30 19:40:00
+[2025-01-31T13:07:32.381+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: AAPL, timestamp: 2025-01-30 19:35:00
+[2025-01-31T13:07:32.382+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: AAPL, timestamp: 2025-01-30 19:30:00
+[2025-01-31T13:07:32.383+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: AAPL, timestamp: 2025-01-30 19:25:00
+[2025-01-31T13:07:32.384+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: AAPL, timestamp: 2025-01-30 19:20:00
+[2025-01-31T13:07:32.385+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: AAPL, timestamp: 2025-01-30 19:15:00
+[2025-01-31T13:07:32.386+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: AAPL, timestamp: 2025-01-30 19:10:00
+[2025-01-31T13:07:32.388+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: AAPL, timestamp: 2025-01-30 19:05:00
+[2025-01-31T13:07:32.389+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: AAPL, timestamp: 2025-01-30 19:00:00
+[2025-01-31T13:07:32.389+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: AAPL, timestamp: 2025-01-30 18:55:00
+[2025-01-31T13:07:32.390+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: AAPL, timestamp: 2025-01-30 18:50:00
+[2025-01-31T13:07:32.390+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: AAPL, timestamp: 2025-01-30 18:45:00
+[2025-01-31T13:07:32.391+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: AAPL, timestamp: 2025-01-30 18:40:00
+[2025-01-31T13:07:32.392+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: AAPL, timestamp: 2025-01-30 18:35:00
+[2025-01-31T13:07:32.392+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: AAPL, timestamp: 2025-01-30 18:30:00
+[2025-01-31T13:07:32.393+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: AAPL, timestamp: 2025-01-30 18:25:00
+[2025-01-31T13:07:32.394+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: AAPL, timestamp: 2025-01-30 18:20:00
+[2025-01-31T13:07:32.394+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: AAPL, timestamp: 2025-01-30 18:15:00
+[2025-01-31T13:07:32.395+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: AAPL, timestamp: 2025-01-30 18:10:00
+[2025-01-31T13:07:32.396+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: AAPL, timestamp: 2025-01-30 18:05:00
+[2025-01-31T13:07:32.397+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: AAPL, timestamp: 2025-01-30 18:00:00
+[2025-01-31T13:07:32.397+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: AAPL, timestamp: 2025-01-30 17:55:00
+[2025-01-31T13:07:32.398+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: AAPL, timestamp: 2025-01-30 17:50:00
+[2025-01-31T13:07:32.398+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: AAPL, timestamp: 2025-01-30 17:45:00
+[2025-01-31T13:07:32.399+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: AAPL, timestamp: 2025-01-30 17:40:00
+[2025-01-31T13:07:32.399+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: AAPL, timestamp: 2025-01-30 17:35:00
+[2025-01-31T13:07:32.402+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: AAPL, timestamp: 2025-01-30 17:30:00
+[2025-01-31T13:07:32.403+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: AAPL, timestamp: 2025-01-30 17:25:00
+[2025-01-31T13:07:32.408+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: AAPL, timestamp: 2025-01-30 17:20:00
+[2025-01-31T13:07:32.409+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: AAPL, timestamp: 2025-01-30 17:15:00
+[2025-01-31T13:07:32.410+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: AAPL, timestamp: 2025-01-30 17:10:00
+[2025-01-31T13:07:32.411+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: AAPL, timestamp: 2025-01-30 17:05:00
+[2025-01-31T13:07:32.411+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: AAPL, timestamp: 2025-01-30 17:00:00
+[2025-01-31T13:07:32.412+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: AAPL, timestamp: 2025-01-30 16:55:00
+[2025-01-31T13:07:32.414+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: AAPL, timestamp: 2025-01-30 16:50:00
+[2025-01-31T13:07:32.417+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: AAPL, timestamp: 2025-01-30 16:45:00
+[2025-01-31T13:07:32.418+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: AAPL, timestamp: 2025-01-30 16:40:00
+[2025-01-31T13:07:32.419+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: AAPL, timestamp: 2025-01-30 16:35:00
+[2025-01-31T13:07:32.419+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: AAPL, timestamp: 2025-01-30 16:30:00
+[2025-01-31T13:07:32.419+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: AAPL, timestamp: 2025-01-30 16:25:00
+[2025-01-31T13:07:32.420+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: AAPL, timestamp: 2025-01-30 16:20:00
+[2025-01-31T13:07:32.421+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: AAPL, timestamp: 2025-01-30 16:15:00
+[2025-01-31T13:07:32.422+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: AAPL, timestamp: 2025-01-30 16:10:00
+[2025-01-31T13:07:32.425+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: AAPL, timestamp: 2025-01-30 16:05:00
+[2025-01-31T13:07:32.426+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: AAPL, timestamp: 2025-01-30 16:00:00
+[2025-01-31T13:07:32.427+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: AAPL, timestamp: 2025-01-30 15:55:00
+[2025-01-31T13:07:32.428+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: AAPL, timestamp: 2025-01-30 15:50:00
+[2025-01-31T13:07:32.428+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: AAPL, timestamp: 2025-01-30 15:45:00
+[2025-01-31T13:07:32.430+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: AAPL, timestamp: 2025-01-30 15:40:00
+[2025-01-31T13:07:32.431+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: AAPL, timestamp: 2025-01-30 15:35:00
+[2025-01-31T13:07:32.431+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: AAPL, timestamp: 2025-01-30 15:30:00
+[2025-01-31T13:07:32.433+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: AAPL, timestamp: 2025-01-30 15:25:00
+[2025-01-31T13:07:32.433+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: AAPL, timestamp: 2025-01-30 15:20:00
+[2025-01-31T13:07:32.434+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: AAPL, timestamp: 2025-01-30 15:15:00
+[2025-01-31T13:07:32.435+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: AAPL, timestamp: 2025-01-30 15:10:00
+[2025-01-31T13:07:32.435+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: AAPL, timestamp: 2025-01-30 15:05:00
+[2025-01-31T13:07:32.436+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: AAPL, timestamp: 2025-01-30 15:00:00
+[2025-01-31T13:07:32.438+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: AAPL, timestamp: 2025-01-30 14:55:00
+[2025-01-31T13:07:32.442+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: AAPL, timestamp: 2025-01-30 14:50:00
+[2025-01-31T13:07:32.443+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: AAPL, timestamp: 2025-01-30 14:45:00
+[2025-01-31T13:07:32.444+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: AAPL, timestamp: 2025-01-30 14:40:00
+[2025-01-31T13:07:32.444+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: AAPL, timestamp: 2025-01-30 14:35:00
+[2025-01-31T13:07:32.445+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: AAPL, timestamp: 2025-01-30 14:30:00
+[2025-01-31T13:07:32.446+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: AAPL, timestamp: 2025-01-30 14:25:00
+[2025-01-31T13:07:32.447+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: AAPL, timestamp: 2025-01-30 14:20:00
+[2025-01-31T13:07:32.447+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: AAPL, timestamp: 2025-01-30 14:15:00
+[2025-01-31T13:07:32.449+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: AAPL, timestamp: 2025-01-30 14:10:00
+[2025-01-31T13:07:32.450+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: AAPL, timestamp: 2025-01-30 14:05:00
+[2025-01-31T13:07:32.452+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: AAPL, timestamp: 2025-01-30 14:00:00
+[2025-01-31T13:07:32.454+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: AAPL, timestamp: 2025-01-30 13:55:00
+[2025-01-31T13:07:32.457+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: AAPL, timestamp: 2025-01-30 13:50:00
+[2025-01-31T13:07:32.459+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: AAPL, timestamp: 2025-01-30 13:45:00
+[2025-01-31T13:07:32.460+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: AAPL, timestamp: 2025-01-30 13:40:00
+[2025-01-31T13:07:32.460+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: AAPL, timestamp: 2025-01-30 13:35:00
+[2025-01-31T13:07:32.463+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: AAPL, timestamp: 2025-01-30 13:30:00
+[2025-01-31T13:07:32.464+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: AAPL, timestamp: 2025-01-30 13:25:00
+[2025-01-31T13:07:32.464+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: AAPL, timestamp: 2025-01-30 13:20:00
+[2025-01-31T13:07:32.466+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: AAPL, timestamp: 2025-01-30 13:15:00
+[2025-01-31T13:07:32.467+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: AAPL, timestamp: 2025-01-30 13:10:00
+[2025-01-31T13:07:32.468+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: AAPL, timestamp: 2025-01-30 13:05:00
+[2025-01-31T13:07:32.468+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: AAPL, timestamp: 2025-01-30 13:00:00
+[2025-01-31T13:07:32.468+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: AAPL, timestamp: 2025-01-30 12:55:00
+[2025-01-31T13:07:32.470+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: AAPL, timestamp: 2025-01-30 12:50:00
+[2025-01-31T13:07:32.472+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: AAPL, timestamp: 2025-01-30 12:45:00
+[2025-01-31T13:07:32.473+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: AAPL, timestamp: 2025-01-30 12:40:00
+[2025-01-31T13:07:32.473+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: AAPL, timestamp: 2025-01-30 12:35:00
+[2025-01-31T13:07:32.475+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: AAPL, timestamp: 2025-01-30 12:30:00
+[2025-01-31T13:07:32.477+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: AAPL, timestamp: 2025-01-30 12:25:00
+[2025-01-31T13:07:32.478+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: AAPL, timestamp: 2025-01-30 12:20:00
+[2025-01-31T13:07:32.479+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: AAPL, timestamp: 2025-01-30 12:15:00
+[2025-01-31T13:07:32.479+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: AAPL, timestamp: 2025-01-30 12:10:00
+[2025-01-31T13:07:32.480+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: AAPL, timestamp: 2025-01-30 12:05:00
+[2025-01-31T13:07:32.480+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: AAPL, timestamp: 2025-01-30 12:00:00
+[2025-01-31T13:07:32.482+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: AAPL, timestamp: 2025-01-30 11:55:00
+[2025-01-31T13:07:32.483+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: AAPL, timestamp: 2025-01-30 11:50:00
+[2025-01-31T13:07:32.483+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: AAPL, timestamp: 2025-01-30 11:45:00
+[2025-01-31T13:07:32.484+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: AAPL, timestamp: 2025-01-30 11:40:00
+[2025-01-31T13:07:32.485+0000] {subprocess.py:93} INFO - INFO:__main__:Processed messages for symbol: AAPL: 100
+[2025-01-31T13:07:32.485+0000] {subprocess.py:93} INFO - INFO:__main__:Fetching data for symbol: GOOGL
+[2025-01-31T13:07:33.174+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: GOOGL, timestamp: 2025-01-30 19:55:00
+[2025-01-31T13:07:33.175+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: GOOGL, timestamp: 2025-01-30 19:50:00
+[2025-01-31T13:07:33.176+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: GOOGL, timestamp: 2025-01-30 19:45:00
+[2025-01-31T13:07:33.177+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: GOOGL, timestamp: 2025-01-30 19:40:00
+[2025-01-31T13:07:33.177+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: GOOGL, timestamp: 2025-01-30 19:35:00
+[2025-01-31T13:07:33.178+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: GOOGL, timestamp: 2025-01-30 19:30:00
+[2025-01-31T13:07:33.178+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: GOOGL, timestamp: 2025-01-30 19:25:00
+[2025-01-31T13:07:33.179+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: GOOGL, timestamp: 2025-01-30 19:20:00
+[2025-01-31T13:07:33.180+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: GOOGL, timestamp: 2025-01-30 19:15:00
+[2025-01-31T13:07:33.181+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: GOOGL, timestamp: 2025-01-30 19:10:00
+[2025-01-31T13:07:33.181+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: GOOGL, timestamp: 2025-01-30 19:05:00
+[2025-01-31T13:07:33.182+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: GOOGL, timestamp: 2025-01-30 19:00:00
+[2025-01-31T13:07:33.182+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: GOOGL, timestamp: 2025-01-30 18:55:00
+[2025-01-31T13:07:33.182+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: GOOGL, timestamp: 2025-01-30 18:50:00
+[2025-01-31T13:07:33.183+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: GOOGL, timestamp: 2025-01-30 18:45:00
+[2025-01-31T13:07:33.183+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: GOOGL, timestamp: 2025-01-30 18:40:00
+[2025-01-31T13:07:33.183+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: GOOGL, timestamp: 2025-01-30 18:35:00
+[2025-01-31T13:07:33.184+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: GOOGL, timestamp: 2025-01-30 18:30:00
+[2025-01-31T13:07:33.184+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: GOOGL, timestamp: 2025-01-30 18:25:00
+[2025-01-31T13:07:33.184+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: GOOGL, timestamp: 2025-01-30 18:20:00
+[2025-01-31T13:07:33.185+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: GOOGL, timestamp: 2025-01-30 18:15:00
+[2025-01-31T13:07:33.185+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: GOOGL, timestamp: 2025-01-30 18:10:00
+[2025-01-31T13:07:33.186+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: GOOGL, timestamp: 2025-01-30 18:05:00
+[2025-01-31T13:07:33.186+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: GOOGL, timestamp: 2025-01-30 18:00:00
+[2025-01-31T13:07:33.188+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: GOOGL, timestamp: 2025-01-30 17:55:00
+[2025-01-31T13:07:33.189+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: GOOGL, timestamp: 2025-01-30 17:50:00
+[2025-01-31T13:07:33.189+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: GOOGL, timestamp: 2025-01-30 17:45:00
+[2025-01-31T13:07:33.190+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: GOOGL, timestamp: 2025-01-30 17:40:00
+[2025-01-31T13:07:33.190+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: GOOGL, timestamp: 2025-01-30 17:35:00
+[2025-01-31T13:07:33.191+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: GOOGL, timestamp: 2025-01-30 17:30:00
+[2025-01-31T13:07:33.192+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: GOOGL, timestamp: 2025-01-30 17:25:00
+[2025-01-31T13:07:33.193+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: GOOGL, timestamp: 2025-01-30 17:20:00
+[2025-01-31T13:07:33.194+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: GOOGL, timestamp: 2025-01-30 17:15:00
+[2025-01-31T13:07:33.194+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: GOOGL, timestamp: 2025-01-30 17:10:00
+[2025-01-31T13:07:33.195+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: GOOGL, timestamp: 2025-01-30 17:05:00
+[2025-01-31T13:07:33.196+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: GOOGL, timestamp: 2025-01-30 17:00:00
+[2025-01-31T13:07:33.196+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: GOOGL, timestamp: 2025-01-30 16:55:00
+[2025-01-31T13:07:33.197+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: GOOGL, timestamp: 2025-01-30 16:50:00
+[2025-01-31T13:07:33.198+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: GOOGL, timestamp: 2025-01-30 16:45:00
+[2025-01-31T13:07:33.198+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: GOOGL, timestamp: 2025-01-30 16:40:00
+[2025-01-31T13:07:33.199+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: GOOGL, timestamp: 2025-01-30 16:35:00
+[2025-01-31T13:07:33.199+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: GOOGL, timestamp: 2025-01-30 16:30:00
+[2025-01-31T13:07:33.199+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: GOOGL, timestamp: 2025-01-30 16:25:00
+[2025-01-31T13:07:33.200+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: GOOGL, timestamp: 2025-01-30 16:20:00
+[2025-01-31T13:07:33.200+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: GOOGL, timestamp: 2025-01-30 16:15:00
+[2025-01-31T13:07:33.201+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: GOOGL, timestamp: 2025-01-30 16:10:00
+[2025-01-31T13:07:33.203+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: GOOGL, timestamp: 2025-01-30 16:05:00
+[2025-01-31T13:07:33.204+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: GOOGL, timestamp: 2025-01-30 16:00:00
+[2025-01-31T13:07:33.205+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: GOOGL, timestamp: 2025-01-30 15:55:00
+[2025-01-31T13:07:33.205+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: GOOGL, timestamp: 2025-01-30 15:50:00
+[2025-01-31T13:07:33.206+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: GOOGL, timestamp: 2025-01-30 15:45:00
+[2025-01-31T13:07:33.206+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: GOOGL, timestamp: 2025-01-30 15:40:00
+[2025-01-31T13:07:33.207+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: GOOGL, timestamp: 2025-01-30 15:35:00
+[2025-01-31T13:07:33.207+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: GOOGL, timestamp: 2025-01-30 15:30:00
+[2025-01-31T13:07:33.208+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: GOOGL, timestamp: 2025-01-30 15:25:00
+[2025-01-31T13:07:33.210+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: GOOGL, timestamp: 2025-01-30 15:20:00
+[2025-01-31T13:07:33.211+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: GOOGL, timestamp: 2025-01-30 15:15:00
+[2025-01-31T13:07:33.212+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: GOOGL, timestamp: 2025-01-30 15:10:00
+[2025-01-31T13:07:33.212+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: GOOGL, timestamp: 2025-01-30 15:05:00
+[2025-01-31T13:07:33.213+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: GOOGL, timestamp: 2025-01-30 15:00:00
+[2025-01-31T13:07:33.214+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: GOOGL, timestamp: 2025-01-30 14:55:00
+[2025-01-31T13:07:33.214+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: GOOGL, timestamp: 2025-01-30 14:50:00
+[2025-01-31T13:07:33.215+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: GOOGL, timestamp: 2025-01-30 14:45:00
+[2025-01-31T13:07:33.217+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: GOOGL, timestamp: 2025-01-30 14:40:00
+[2025-01-31T13:07:33.218+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: GOOGL, timestamp: 2025-01-30 14:35:00
+[2025-01-31T13:07:33.218+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: GOOGL, timestamp: 2025-01-30 14:30:00
+[2025-01-31T13:07:33.219+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: GOOGL, timestamp: 2025-01-30 14:25:00
+[2025-01-31T13:07:33.219+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: GOOGL, timestamp: 2025-01-30 14:20:00
+[2025-01-31T13:07:33.220+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: GOOGL, timestamp: 2025-01-30 14:15:00
+[2025-01-31T13:07:33.224+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: GOOGL, timestamp: 2025-01-30 14:10:00
+[2025-01-31T13:07:33.224+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: GOOGL, timestamp: 2025-01-30 14:05:00
+[2025-01-31T13:07:33.225+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: GOOGL, timestamp: 2025-01-30 14:00:00
+[2025-01-31T13:07:33.226+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: GOOGL, timestamp: 2025-01-30 13:55:00
+[2025-01-31T13:07:33.226+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: GOOGL, timestamp: 2025-01-30 13:50:00
+[2025-01-31T13:07:33.226+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: GOOGL, timestamp: 2025-01-30 13:45:00
+[2025-01-31T13:07:33.227+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: GOOGL, timestamp: 2025-01-30 13:40:00
+[2025-01-31T13:07:33.228+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: GOOGL, timestamp: 2025-01-30 13:35:00
+[2025-01-31T13:07:33.228+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: GOOGL, timestamp: 2025-01-30 13:30:00
+[2025-01-31T13:07:33.230+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: GOOGL, timestamp: 2025-01-30 13:25:00
+[2025-01-31T13:07:33.232+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: GOOGL, timestamp: 2025-01-30 13:20:00
+[2025-01-31T13:07:33.235+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: GOOGL, timestamp: 2025-01-30 13:15:00
+[2025-01-31T13:07:33.236+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: GOOGL, timestamp: 2025-01-30 13:10:00
+[2025-01-31T13:07:33.236+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: GOOGL, timestamp: 2025-01-30 13:05:00
+[2025-01-31T13:07:33.237+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: GOOGL, timestamp: 2025-01-30 13:00:00
+[2025-01-31T13:07:33.237+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: GOOGL, timestamp: 2025-01-30 12:55:00
+[2025-01-31T13:07:33.240+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: GOOGL, timestamp: 2025-01-30 12:50:00
+[2025-01-31T13:07:33.241+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: GOOGL, timestamp: 2025-01-30 12:45:00
+[2025-01-31T13:07:33.242+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: GOOGL, timestamp: 2025-01-30 12:40:00
+[2025-01-31T13:07:33.242+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: GOOGL, timestamp: 2025-01-30 12:35:00
+[2025-01-31T13:07:33.242+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: GOOGL, timestamp: 2025-01-30 12:30:00
+[2025-01-31T13:07:33.243+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: GOOGL, timestamp: 2025-01-30 12:25:00
+[2025-01-31T13:07:33.244+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: GOOGL, timestamp: 2025-01-30 12:20:00
+[2025-01-31T13:07:33.245+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: GOOGL, timestamp: 2025-01-30 12:15:00
+[2025-01-31T13:07:33.246+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: GOOGL, timestamp: 2025-01-30 12:10:00
+[2025-01-31T13:07:33.246+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: GOOGL, timestamp: 2025-01-30 12:05:00
+[2025-01-31T13:07:33.247+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: GOOGL, timestamp: 2025-01-30 12:00:00
+[2025-01-31T13:07:33.247+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: GOOGL, timestamp: 2025-01-30 11:55:00
+[2025-01-31T13:07:33.248+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: GOOGL, timestamp: 2025-01-30 11:50:00
+[2025-01-31T13:07:33.249+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: GOOGL, timestamp: 2025-01-30 11:45:00
+[2025-01-31T13:07:33.249+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: GOOGL, timestamp: 2025-01-30 11:40:00
+[2025-01-31T13:07:33.250+0000] {subprocess.py:93} INFO - INFO:__main__:Processed messages for symbol: GOOGL: 200
+[2025-01-31T13:07:33.250+0000] {subprocess.py:93} INFO - INFO:__main__:Fetching data for symbol: MSFT
+[2025-01-31T13:07:33.720+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: MSFT, timestamp: 2025-01-30 19:55:00
+[2025-01-31T13:07:33.724+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: MSFT, timestamp: 2025-01-30 19:50:00
+[2025-01-31T13:07:33.727+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: MSFT, timestamp: 2025-01-30 19:45:00
+[2025-01-31T13:07:33.729+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: MSFT, timestamp: 2025-01-30 19:40:00
+[2025-01-31T13:07:33.729+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: MSFT, timestamp: 2025-01-30 19:35:00
+[2025-01-31T13:07:33.730+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: MSFT, timestamp: 2025-01-30 19:30:00
+[2025-01-31T13:07:33.730+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: MSFT, timestamp: 2025-01-30 19:25:00
+[2025-01-31T13:07:33.733+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: MSFT, timestamp: 2025-01-30 19:20:00
+[2025-01-31T13:07:33.734+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: MSFT, timestamp: 2025-01-30 19:15:00
+[2025-01-31T13:07:33.735+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: MSFT, timestamp: 2025-01-30 19:10:00
+[2025-01-31T13:07:33.735+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: MSFT, timestamp: 2025-01-30 19:05:00
+[2025-01-31T13:07:33.736+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: MSFT, timestamp: 2025-01-30 19:00:00
+[2025-01-31T13:07:33.736+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: MSFT, timestamp: 2025-01-30 18:55:00
+[2025-01-31T13:07:33.737+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: MSFT, timestamp: 2025-01-30 18:50:00
+[2025-01-31T13:07:33.740+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: MSFT, timestamp: 2025-01-30 18:45:00
+[2025-01-31T13:07:33.743+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: MSFT, timestamp: 2025-01-30 18:40:00
+[2025-01-31T13:07:33.745+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: MSFT, timestamp: 2025-01-30 18:35:00
+[2025-01-31T13:07:33.746+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: MSFT, timestamp: 2025-01-30 18:30:00
+[2025-01-31T13:07:33.747+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: MSFT, timestamp: 2025-01-30 18:25:00
+[2025-01-31T13:07:33.748+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: MSFT, timestamp: 2025-01-30 18:20:00
+[2025-01-31T13:07:33.750+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: MSFT, timestamp: 2025-01-30 18:15:00
+[2025-01-31T13:07:33.751+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: MSFT, timestamp: 2025-01-30 18:10:00
+[2025-01-31T13:07:33.752+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: MSFT, timestamp: 2025-01-30 18:05:00
+[2025-01-31T13:07:33.753+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: MSFT, timestamp: 2025-01-30 18:00:00
+[2025-01-31T13:07:33.759+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: MSFT, timestamp: 2025-01-30 17:55:00
+[2025-01-31T13:07:33.761+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: MSFT, timestamp: 2025-01-30 17:50:00
+[2025-01-31T13:07:33.762+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: MSFT, timestamp: 2025-01-30 17:45:00
+[2025-01-31T13:07:33.763+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: MSFT, timestamp: 2025-01-30 17:40:00
+[2025-01-31T13:07:33.763+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: MSFT, timestamp: 2025-01-30 17:35:00
+[2025-01-31T13:07:33.764+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: MSFT, timestamp: 2025-01-30 17:30:00
+[2025-01-31T13:07:33.764+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: MSFT, timestamp: 2025-01-30 17:25:00
+[2025-01-31T13:07:33.765+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: MSFT, timestamp: 2025-01-30 17:20:00
+[2025-01-31T13:07:33.765+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: MSFT, timestamp: 2025-01-30 17:15:00
+[2025-01-31T13:07:33.768+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: MSFT, timestamp: 2025-01-30 17:10:00
+[2025-01-31T13:07:33.772+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: MSFT, timestamp: 2025-01-30 17:05:00
+[2025-01-31T13:07:33.776+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: MSFT, timestamp: 2025-01-30 17:00:00
+[2025-01-31T13:07:33.779+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: MSFT, timestamp: 2025-01-30 16:55:00
+[2025-01-31T13:07:33.780+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: MSFT, timestamp: 2025-01-30 16:50:00
+[2025-01-31T13:07:33.782+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: MSFT, timestamp: 2025-01-30 16:45:00
+[2025-01-31T13:07:33.783+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: MSFT, timestamp: 2025-01-30 16:40:00
+[2025-01-31T13:07:33.784+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: MSFT, timestamp: 2025-01-30 16:35:00
+[2025-01-31T13:07:33.784+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: MSFT, timestamp: 2025-01-30 16:30:00
+[2025-01-31T13:07:33.785+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: MSFT, timestamp: 2025-01-30 16:25:00
+[2025-01-31T13:07:33.785+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: MSFT, timestamp: 2025-01-30 16:20:00
+[2025-01-31T13:07:33.786+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: MSFT, timestamp: 2025-01-30 16:15:00
+[2025-01-31T13:07:33.786+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: MSFT, timestamp: 2025-01-30 16:10:00
+[2025-01-31T13:07:33.787+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: MSFT, timestamp: 2025-01-30 16:05:00
+[2025-01-31T13:07:33.791+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: MSFT, timestamp: 2025-01-30 16:00:00
+[2025-01-31T13:07:33.795+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: MSFT, timestamp: 2025-01-30 15:55:00
+[2025-01-31T13:07:33.796+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: MSFT, timestamp: 2025-01-30 15:50:00
+[2025-01-31T13:07:33.800+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: MSFT, timestamp: 2025-01-30 15:45:00
+[2025-01-31T13:07:33.803+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: MSFT, timestamp: 2025-01-30 15:40:00
+[2025-01-31T13:07:33.812+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: MSFT, timestamp: 2025-01-30 15:35:00
+[2025-01-31T13:07:33.813+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: MSFT, timestamp: 2025-01-30 15:30:00
+[2025-01-31T13:07:33.813+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: MSFT, timestamp: 2025-01-30 15:25:00
+[2025-01-31T13:07:33.814+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: MSFT, timestamp: 2025-01-30 15:20:00
+[2025-01-31T13:07:33.816+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: MSFT, timestamp: 2025-01-30 15:15:00
+[2025-01-31T13:07:33.818+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: MSFT, timestamp: 2025-01-30 15:10:00
+[2025-01-31T13:07:33.819+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: MSFT, timestamp: 2025-01-30 15:05:00
+[2025-01-31T13:07:33.820+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: MSFT, timestamp: 2025-01-30 15:00:00
+[2025-01-31T13:07:33.826+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: MSFT, timestamp: 2025-01-30 14:55:00
+[2025-01-31T13:07:33.828+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: MSFT, timestamp: 2025-01-30 14:50:00
+[2025-01-31T13:07:33.828+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: MSFT, timestamp: 2025-01-30 14:45:00
+[2025-01-31T13:07:33.829+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: MSFT, timestamp: 2025-01-30 14:40:00
+[2025-01-31T13:07:33.830+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: MSFT, timestamp: 2025-01-30 14:35:00
+[2025-01-31T13:07:33.831+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: MSFT, timestamp: 2025-01-30 14:30:00
+[2025-01-31T13:07:33.831+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: MSFT, timestamp: 2025-01-30 14:25:00
+[2025-01-31T13:07:33.835+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: MSFT, timestamp: 2025-01-30 14:20:00
+[2025-01-31T13:07:33.836+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: MSFT, timestamp: 2025-01-30 14:15:00
+[2025-01-31T13:07:33.836+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: MSFT, timestamp: 2025-01-30 14:10:00
+[2025-01-31T13:07:33.839+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: MSFT, timestamp: 2025-01-30 14:05:00
+[2025-01-31T13:07:33.840+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: MSFT, timestamp: 2025-01-30 14:00:00
+[2025-01-31T13:07:33.841+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: MSFT, timestamp: 2025-01-30 13:55:00
+[2025-01-31T13:07:33.843+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: MSFT, timestamp: 2025-01-30 13:50:00
+[2025-01-31T13:07:33.843+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: MSFT, timestamp: 2025-01-30 13:45:00
+[2025-01-31T13:07:33.844+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: MSFT, timestamp: 2025-01-30 13:40:00
+[2025-01-31T13:07:33.846+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: MSFT, timestamp: 2025-01-30 13:35:00
+[2025-01-31T13:07:33.848+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: MSFT, timestamp: 2025-01-30 13:30:00
+[2025-01-31T13:07:33.848+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: MSFT, timestamp: 2025-01-30 13:25:00
+[2025-01-31T13:07:33.851+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: MSFT, timestamp: 2025-01-30 13:20:00
+[2025-01-31T13:07:33.851+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: MSFT, timestamp: 2025-01-30 13:15:00
+[2025-01-31T13:07:33.853+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: MSFT, timestamp: 2025-01-30 13:10:00
+[2025-01-31T13:07:33.855+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: MSFT, timestamp: 2025-01-30 13:05:00
+[2025-01-31T13:07:33.856+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: MSFT, timestamp: 2025-01-30 13:00:00
+[2025-01-31T13:07:33.862+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: MSFT, timestamp: 2025-01-30 12:55:00
+[2025-01-31T13:07:33.864+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: MSFT, timestamp: 2025-01-30 12:50:00
+[2025-01-31T13:07:33.865+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: MSFT, timestamp: 2025-01-30 12:45:00
+[2025-01-31T13:07:33.866+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: MSFT, timestamp: 2025-01-30 12:40:00
+[2025-01-31T13:07:33.867+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: MSFT, timestamp: 2025-01-30 12:35:00
+[2025-01-31T13:07:33.867+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: MSFT, timestamp: 2025-01-30 12:30:00
+[2025-01-31T13:07:33.868+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: MSFT, timestamp: 2025-01-30 12:25:00
+[2025-01-31T13:07:33.868+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: MSFT, timestamp: 2025-01-30 12:20:00
+[2025-01-31T13:07:33.869+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: MSFT, timestamp: 2025-01-30 12:15:00
+[2025-01-31T13:07:33.869+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: MSFT, timestamp: 2025-01-30 12:10:00
+[2025-01-31T13:07:33.869+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: MSFT, timestamp: 2025-01-30 12:05:00
+[2025-01-31T13:07:33.870+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: MSFT, timestamp: 2025-01-30 12:00:00
+[2025-01-31T13:07:33.870+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: MSFT, timestamp: 2025-01-30 11:55:00
+[2025-01-31T13:07:33.875+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: MSFT, timestamp: 2025-01-30 11:50:00
+[2025-01-31T13:07:33.878+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: MSFT, timestamp: 2025-01-30 11:45:00
+[2025-01-31T13:07:33.879+0000] {subprocess.py:93} INFO - INFO:__main__:Sent data for symbol: MSFT, timestamp: 2025-01-30 11:40:00
+[2025-01-31T13:07:33.879+0000] {subprocess.py:93} INFO - INFO:__main__:Processed messages for symbol: MSFT: 300
+[2025-01-31T13:07:33.880+0000] {subprocess.py:93} INFO - INFO:__main__:Flushing Kafka producer...
+[2025-01-31T13:07:33.883+0000] {subprocess.py:93} INFO - INFO:__main__:Messages sent: 300
+[2025-01-31T13:07:33.884+0000] {subprocess.py:93} INFO - INFO:__main__:Record errors: 0
+[2025-01-31T13:07:33.885+0000] {subprocess.py:93} INFO - INFO:__main__:Average request latency: 8.864234994958949
+[2025-01-31T13:07:33.885+0000] {subprocess.py:93} INFO - INFO:__main__:Closing Kafka producer...
+[2025-01-31T13:07:33.886+0000] {subprocess.py:93} INFO - INFO:kafka.producer.kafka:Closing the Kafka producer with 9223372036.0 secs timeout.
+[2025-01-31T13:07:33.886+0000] {subprocess.py:93} INFO - INFO:kafka.conn:<BrokerConnection node_id=1001 host=kafka:9092 <connected> [IPv4 ('172.18.0.4', 9092)]>: Closing connection.
+[2025-01-31T13:07:33.886+0000] {subprocess.py:93} INFO - INFO:__main__:Producer executed and closed successfully.
+[2025-01-31T13:07:33.947+0000] {subprocess.py:97} INFO - Command exited with return code 0
+[2025-01-31T13:07:33.985+0000] {taskinstance.py:1400} INFO - Marking task as SUCCESS. dag_id=stock_price_pipeline_intraday, task_id=start_producer_intraday, execution_date=20250131T130726, start_date=20250131T130729, end_date=20250131T130733
+[2025-01-31T13:07:34.018+0000] {local_task_job_runner.py:228} INFO - Task exited with return code 0
+[2025-01-31T13:07:34.060+0000] {taskinstance.py:2784} INFO - 1 downstream tasks scheduled from follow-on schedule check

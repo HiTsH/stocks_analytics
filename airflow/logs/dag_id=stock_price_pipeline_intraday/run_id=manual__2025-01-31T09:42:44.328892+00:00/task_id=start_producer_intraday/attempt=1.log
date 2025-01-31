@@ -1,0 +1,36 @@
+[2025-01-31T09:42:49.839+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: stock_price_pipeline_intraday.start_producer_intraday manual__2025-01-31T09:42:44.328892+00:00 [queued]>
+[2025-01-31T09:42:49.850+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: stock_price_pipeline_intraday.start_producer_intraday manual__2025-01-31T09:42:44.328892+00:00 [queued]>
+[2025-01-31T09:42:49.851+0000] {taskinstance.py:1361} INFO - Starting attempt 1 of 2
+[2025-01-31T09:42:49.875+0000] {taskinstance.py:1382} INFO - Executing <Task(BashOperator): start_producer_intraday> on 2025-01-31 09:42:44.328892+00:00
+[2025-01-31T09:42:49.904+0000] {standard_task_runner.py:57} INFO - Started process 58 to run task
+[2025-01-31T09:42:49.926+0000] {standard_task_runner.py:84} INFO - Running: ['airflow', 'tasks', 'run', 'stock_price_pipeline_intraday', 'start_producer_intraday', 'manual__2025-01-31T09:42:44.328892+00:00', '--job-id', '2', '--raw', '--subdir', 'DAGS_FOLDER/stock_pipeline_dag.py', '--cfg-path', '/tmp/tmpusxzmh4l']
+[2025-01-31T09:42:49.928+0000] {standard_task_runner.py:85} INFO - Job 2: Subtask start_producer_intraday
+[2025-01-31T09:42:49.979+0000] {task_command.py:415} INFO - Running <TaskInstance: stock_price_pipeline_intraday.start_producer_intraday manual__2025-01-31T09:42:44.328892+00:00 [running]> on host c8bc253c124e
+[2025-01-31T09:42:50.764+0000] {taskinstance.py:1660} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='stock_price_pipeline_intraday' AIRFLOW_CTX_TASK_ID='start_producer_intraday' AIRFLOW_CTX_EXECUTION_DATE='2025-01-31T09:42:44.328892+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2025-01-31T09:42:44.328892+00:00'
+[2025-01-31T09:42:50.766+0000] {subprocess.py:63} INFO - Tmp dir root location: /tmp
+[2025-01-31T09:42:50.769+0000] {subprocess.py:75} INFO - Running command: ['/bin/bash', '-c', 'docker exec producer-5min python kafka_producer_5min.py']
+[2025-01-31T09:42:50.790+0000] {subprocess.py:86} INFO - Output:
+[2025-01-31T09:42:51.848+0000] {subprocess.py:93} INFO - INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=kafka:9092 <connecting> [IPv4 ('172.18.0.4', 9092)]>: connecting to kafka:9092 [('172.18.0.4', 9092) IPv4]
+[2025-01-31T09:42:51.849+0000] {subprocess.py:93} INFO - INFO:kafka.conn:Probing node bootstrap-0 broker version
+[2025-01-31T09:42:51.850+0000] {subprocess.py:93} INFO - INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=kafka:9092 <connecting> [IPv4 ('172.18.0.4', 9092)]>: Connection complete.
+[2025-01-31T09:42:51.953+0000] {subprocess.py:93} INFO - INFO:kafka.conn:Broker version identified as 2.5.0
+[2025-01-31T09:42:51.954+0000] {subprocess.py:93} INFO - INFO:kafka.conn:Set configuration api_version=(2, 5, 0) to skip auto check_version requests on startup
+[2025-01-31T09:42:51.959+0000] {subprocess.py:93} INFO - INFO:__main__:Fetching data for symbol: AAPL
+[2025-01-31T09:42:52.878+0000] {subprocess.py:93} INFO - INFO:kafka.conn:<BrokerConnection node_id=1001 host=kafka:9092 <connecting> [IPv4 ('172.18.0.4', 9092)]>: connecting to kafka:9092 [('172.18.0.4', 9092) IPv4]
+[2025-01-31T09:42:52.878+0000] {subprocess.py:93} INFO - INFO:kafka.conn:<BrokerConnection node_id=1001 host=kafka:9092 <connecting> [IPv4 ('172.18.0.4', 9092)]>: Connection complete.
+[2025-01-31T09:42:52.879+0000] {subprocess.py:93} INFO - INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=kafka:9092 <connected> [IPv4 ('172.18.0.4', 9092)]>: Closing connection.
+[2025-01-31T09:42:53.287+0000] {subprocess.py:93} INFO - INFO:__main__:All data for symbol AAPL is sent for processing
+[2025-01-31T09:42:53.292+0000] {subprocess.py:93} INFO - INFO:__main__:Fetching data for symbol: GOOGL
+[2025-01-31T09:42:53.743+0000] {subprocess.py:93} INFO - INFO:__main__:All data for symbol GOOGL is sent for processing
+[2025-01-31T09:42:53.744+0000] {subprocess.py:93} INFO - INFO:__main__:Fetching data for symbol: MSFT
+[2025-01-31T09:42:54.216+0000] {subprocess.py:93} INFO - INFO:__main__:All data for symbol MSFT is sent for processing
+[2025-01-31T09:42:54.224+0000] {subprocess.py:93} INFO - INFO:root:Flushing Kafka producer...
+[2025-01-31T09:42:54.235+0000] {subprocess.py:93} INFO - INFO:__main__:Messages sent: 0
+[2025-01-31T09:42:54.237+0000] {subprocess.py:93} INFO - INFO:root:Closing Kafka producer...
+[2025-01-31T09:42:54.237+0000] {subprocess.py:93} INFO - INFO:kafka.producer.kafka:Closing the Kafka producer with 9223372036.0 secs timeout.
+[2025-01-31T09:42:54.238+0000] {subprocess.py:93} INFO - INFO:kafka.conn:<BrokerConnection node_id=1001 host=kafka:9092 <connected> [IPv4 ('172.18.0.4', 9092)]>: Closing connection.
+[2025-01-31T09:42:54.238+0000] {subprocess.py:93} INFO - INFO:root:Producer executed and closed successfully.
+[2025-01-31T09:42:54.296+0000] {subprocess.py:97} INFO - Command exited with return code 0
+[2025-01-31T09:42:54.325+0000] {taskinstance.py:1400} INFO - Marking task as SUCCESS. dag_id=stock_price_pipeline_intraday, task_id=start_producer_intraday, execution_date=20250131T094244, start_date=20250131T094249, end_date=20250131T094254
+[2025-01-31T09:42:54.356+0000] {local_task_job_runner.py:228} INFO - Task exited with return code 0
+[2025-01-31T09:42:54.393+0000] {taskinstance.py:2784} INFO - 1 downstream tasks scheduled from follow-on schedule check

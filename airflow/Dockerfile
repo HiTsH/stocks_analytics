@@ -12,13 +12,13 @@ USER airflow
 RUN pip install --no-cache-dir kafka-python psycopg2-binary
 
 # Create directories for producers and consumers scripts
-RUN mkdir -p /opt/airflow/dags/producers /opt/airflow/dags/consumers
+RUN mkdir -p /opt/airflow/dags/producers/intraday /opt/airflow/dags/producers/daily /opt/airflow/dags/consumers/intraday /opt/airflow/dags/consumers/daily
 
-# Copy producer and consumer scripts
-COPY producer_5min/*.py /opt/airflow/dags/producers/
-COPY producer_daily/*.py /opt/airflow/dags/producers/
-COPY consumer_5min/*.py /opt/airflow/dags/consumers/
-COPY consumer_daily/*.py /opt/airflow/dags/consumers/
+# # Copy producer and consumer scripts
+# COPY ./producer_5min/*.py /opt/airflow/dags/producers/
+# COPY ./producer_daily/*.py /opt/airflow/dags/producers/
+# COPY ./consumer_5min/*.py /opt/airflow/dags/consumers/
+# COPY ./consumer_daily/*.py /opt/airflow/dags/consumers/
 
 # Set the working directory
 WORKDIR /opt/airflow

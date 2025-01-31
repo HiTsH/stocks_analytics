@@ -1,0 +1,32 @@
+[2025-01-30T12:00:19.009+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: stock_price_pipeline_daily.start_producer_daily manual__2025-01-30T12:00:08.099223+00:00 [queued]>
+[2025-01-30T12:00:19.018+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: stock_price_pipeline_daily.start_producer_daily manual__2025-01-30T12:00:08.099223+00:00 [queued]>
+[2025-01-30T12:00:19.018+0000] {taskinstance.py:1361} INFO - Starting attempt 1 of 2
+[2025-01-30T12:00:19.039+0000] {taskinstance.py:1382} INFO - Executing <Task(BashOperator): start_producer_daily> on 2025-01-30 12:00:08.099223+00:00
+[2025-01-30T12:00:19.043+0000] {standard_task_runner.py:57} INFO - Started process 80 to run task
+[2025-01-30T12:00:19.047+0000] {standard_task_runner.py:84} INFO - Running: ['airflow', 'tasks', 'run', 'stock_price_pipeline_daily', 'start_producer_daily', 'manual__2025-01-30T12:00:08.099223+00:00', '--job-id', '3', '--raw', '--subdir', 'DAGS_FOLDER/stock_pipeline_dag.py', '--cfg-path', '/tmp/tmpkai0dfa8']
+[2025-01-30T12:00:19.049+0000] {standard_task_runner.py:85} INFO - Job 3: Subtask start_producer_daily
+[2025-01-30T12:00:19.092+0000] {task_command.py:415} INFO - Running <TaskInstance: stock_price_pipeline_daily.start_producer_daily manual__2025-01-30T12:00:08.099223+00:00 [running]> on host 56eeb20f7fa3
+[2025-01-30T12:00:19.545+0000] {taskinstance.py:1660} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='stock_price_pipeline_daily' AIRFLOW_CTX_TASK_ID='start_producer_daily' AIRFLOW_CTX_EXECUTION_DATE='2025-01-30T12:00:08.099223+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2025-01-30T12:00:08.099223+00:00'
+[2025-01-30T12:00:19.546+0000] {subprocess.py:63} INFO - Tmp dir root location: /tmp
+[2025-01-30T12:00:19.546+0000] {subprocess.py:75} INFO - Running command: ['/bin/bash', '-c', 'docker exec producer-daily python kafka_producer_daily.py']
+[2025-01-30T12:00:19.553+0000] {subprocess.py:86} INFO - Output:
+[2025-01-30T12:00:19.864+0000] {subprocess.py:93} INFO - INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=kafka:9092 <connecting> [IPv4 ('172.18.0.4', 9092)]>: connecting to kafka:9092 [('172.18.0.4', 9092) IPv4]
+[2025-01-30T12:00:19.865+0000] {subprocess.py:93} INFO - INFO:kafka.conn:Probing node bootstrap-0 broker version
+[2025-01-30T12:00:19.865+0000] {subprocess.py:93} INFO - INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=kafka:9092 <connecting> [IPv4 ('172.18.0.4', 9092)]>: Connection complete.
+[2025-01-30T12:00:19.970+0000] {subprocess.py:93} INFO - INFO:kafka.conn:Broker version identified as 2.5.0
+[2025-01-30T12:00:19.971+0000] {subprocess.py:93} INFO - INFO:kafka.conn:Set configuration api_version=(2, 5, 0) to skip auto check_version requests on startup
+[2025-01-30T12:00:19.973+0000] {subprocess.py:93} INFO - INFO:__main__:Fetching data for symbol: AAPL
+[2025-01-30T12:00:20.516+0000] {subprocess.py:93} INFO - ERROR:__main__:Error processing symbol AAPL: local variable 'date' referenced before assignment
+[2025-01-30T12:00:20.516+0000] {subprocess.py:93} INFO - INFO:__main__:Fetching data for symbol: GOOGL
+[2025-01-30T12:00:20.963+0000] {subprocess.py:93} INFO - ERROR:__main__:Error processing symbol GOOGL: local variable 'date' referenced before assignment
+[2025-01-30T12:00:20.964+0000] {subprocess.py:93} INFO - INFO:__main__:Fetching data for symbol: MSFT
+[2025-01-30T12:00:21.330+0000] {subprocess.py:93} INFO - ERROR:__main__:Error processing symbol MSFT: local variable 'date' referenced before assignment
+[2025-01-30T12:00:21.332+0000] {subprocess.py:93} INFO - INFO:root:Flushing kafka producer...
+[2025-01-30T12:00:21.333+0000] {subprocess.py:93} INFO - INFO:root:Closing kafka producer...
+[2025-01-30T12:00:21.334+0000] {subprocess.py:93} INFO - INFO:kafka.producer.kafka:Closing the Kafka producer with 9223372036.0 secs timeout.
+[2025-01-30T12:00:21.334+0000] {subprocess.py:93} INFO - INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=kafka:9092 <connected> [IPv4 ('172.18.0.4', 9092)]>: Closing connection.
+[2025-01-30T12:00:21.335+0000] {subprocess.py:93} INFO - INFO:root:Producer executed and closed successfully.
+[2025-01-30T12:00:21.383+0000] {subprocess.py:97} INFO - Command exited with return code 0
+[2025-01-30T12:00:21.419+0000] {taskinstance.py:1400} INFO - Marking task as SUCCESS. dag_id=stock_price_pipeline_daily, task_id=start_producer_daily, execution_date=20250130T120008, start_date=20250130T120019, end_date=20250130T120021
+[2025-01-30T12:00:21.481+0000] {local_task_job_runner.py:228} INFO - Task exited with return code 0
+[2025-01-30T12:00:21.549+0000] {taskinstance.py:2784} INFO - 1 downstream tasks scheduled from follow-on schedule check

@@ -1,9 +1,15 @@
 version: "3.8"
 
+networks:
+  stock-network:
+    driver: bridge
+
 services:
   zookeeper:
     image: confluentinc/cp-zookeeper:7.5.0
     container_name: zookeeper
+    networks:
+      - stock-network
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_TICK_TIME: 2000
@@ -13,6 +19,8 @@ services:
   kafka:
     image: confluentinc/cp-kafka:7.5.0
     container_name: kafka
+    networks:
+      - stock-network
     depends_on:
       - zookeeper
     environment:
@@ -29,63 +37,11 @@ services:
       timeout: 5s
       retries: 10
 
-  producer_5min:
-    build:
-      context: ./producer_5min
-    image: stock_pipeline-producer-5min
-    depends_on:
-      kafka:
-        condition: service_healthy
-    environment:
-      KAFKA_BOOTSTRAP_SERVERS: kafka:9092
-      TOPIC_NAME: stock_prices_5min
-    env_file:
-      - .env
-
-  producer_daily:
-    build:
-      context: ./producer_daily
-    image: stock_pipeline-producer-daily
-    depends_on:
-      kafka:
-        condition: service_healthy
-    environment:
-      KAFKA_BOOTSTRAP_SERVERS: kafka:9092
-      TOPIC_NAME: stock_prices_daily
-    env_file:
-      - .env
-
-  consumer_5min:
-    build:
-      context: ./consumer_5min
-    image: stock_pipeline-consumer-5min
-    depends_on:
-      kafka:
-        condition: service_healthy
-    environment:
-      KAFKA_BOOTSTRAP_SERVERS: kafka:9092
-      POSTGRES_HOST: postgres
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      POSTGRES_DB: ${POSTGRES_DB}
-
-  consumer_daily:
-    build:
-      context: ./consumer_daily
-    image: stock_pipeline-consumer-daily
-    depends_on:
-      kafka:
-        condition: service_healthy
-    environment:
-      KAFKA_BOOTSTRAP_SERVERS: kafka:9092
-      POSTGRES_HOST: postgres
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      POSTGRES_DB: ${POSTGRES_DB}
-
   postgres:
     image: postgres:14
     container_name: postgres
+    networks:
+      - stock-network
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
@@ -94,22 +50,108 @@ services:
       - "5433:5432"
     volumes:
       - ./postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
+    env_file:
+      - .env
 
   airflow:
     build:
       context: .
       dockerfile: ./airflow/Dockerfile
     image: stock_pipeline-airflow
+    networks:
+      - stock-network
     depends_on:
       - kafka
-      - consumer_5min
-      - consumer_daily
+      - postgres
     volumes:
       - ./airflow/dags:/opt/airflow/dags
+      - ./airflow/logs:/opt/airflow/logs
+      - ./airflow/plugins:/opt/airflow/plugins
+      - /var/run/docker.sock:/var/run/docker.sock
     ports:
       - "8080:8080"
     environment:
-      - LOAD_EXAMPLES=no
+      - LOAD_EXAMPLES=False
       - EXECUTOR=LocalExecutor
       - AIRFLOW_HOME=/opt/airflow
       - AIRFLOW_CONN_POSTGRES_DEFAULT=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
+    env_file:
+      - .env
+
+  producer_5min:
+    build:
+      context: ./producer_5min
+    container_name: producer-5min
+    image: stock_pipeline-producer-5min
+    networks:
+      - stock-network
+    depends_on:
+      kafka:
+        condition: service_healthy
+    environment:
+      KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+      TOPIC_NAME: stock_prices_5min
+    restart: on-failure
+    command: tail -f /dev/null
+    env_file:
+      - .env
+
+  producer_daily:
+    build:
+      context: ./producer_daily
+    container_name: producer-daily
+    image: stock_pipeline-producer-daily    
+    networks:
+      - stock-network
+    depends_on:
+      kafka:
+        condition: service_healthy
+    environment:
+      KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+      TOPIC_NAME: stock_prices_daily
+    restart: on-failure
+    command: tail -f /dev/null
+    env_file:
+      - .env
+
+  consumer_5min:
+    build:
+      context: ./consumer_5min
+    container_name: consumer-5min
+    image: stock_pipeline-consumer-5min
+    networks:
+      - stock-network
+    depends_on:
+      kafka:
+        condition: service_healthy
+    environment:
+      KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+      POSTGRES_HOST: postgres
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    restart: on-failure
+    command: tail -f /dev/null
+    env_file:
+      - .env
+
+  consumer_daily:
+    build:
+      context: ./consumer_daily
+    container_name: consumer-daily
+    image: stock_pipeline-consumer-daily
+    networks:
+      - stock-network
+    depends_on:
+      kafka:
+        condition: service_healthy
+    environment:
+      KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+      POSTGRES_HOST: postgres
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    restart: on-failure
+    command: tail -f /dev/null
+    env_file:
+      - .env

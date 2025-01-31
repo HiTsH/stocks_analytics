@@ -1,0 +1,45 @@
+[2025-01-28T21:44:23.509+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: stock_price_pipeline_daily.start_consumer_daily manual__2025-01-28T21:43:50.655910+00:00 [queued]>
+[2025-01-28T21:44:23.519+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: stock_price_pipeline_daily.start_consumer_daily manual__2025-01-28T21:43:50.655910+00:00 [queued]>
+[2025-01-28T21:44:23.519+0000] {taskinstance.py:1361} INFO - Starting attempt 1 of 2
+[2025-01-28T21:44:23.541+0000] {taskinstance.py:1382} INFO - Executing <Task(BashOperator): start_consumer_daily> on 2025-01-28 21:43:50.655910+00:00
+[2025-01-28T21:44:23.545+0000] {standard_task_runner.py:57} INFO - Started process 118 to run task
+[2025-01-28T21:44:23.550+0000] {standard_task_runner.py:84} INFO - Running: ['airflow', 'tasks', 'run', 'stock_price_pipeline_daily', 'start_consumer_daily', 'manual__2025-01-28T21:43:50.655910+00:00', '--job-id', '5', '--raw', '--subdir', 'DAGS_FOLDER/stock_pipeline_dag.py', '--cfg-path', '/tmp/tmp8h__k1xb']
+[2025-01-28T21:44:23.551+0000] {standard_task_runner.py:85} INFO - Job 5: Subtask start_consumer_daily
+[2025-01-28T21:44:23.603+0000] {task_command.py:415} INFO - Running <TaskInstance: stock_price_pipeline_daily.start_consumer_daily manual__2025-01-28T21:43:50.655910+00:00 [running]> on host a37f1acea466
+[2025-01-28T21:44:24.240+0000] {taskinstance.py:1660} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='stock_price_pipeline_daily' AIRFLOW_CTX_TASK_ID='start_consumer_daily' AIRFLOW_CTX_EXECUTION_DATE='2025-01-28T21:43:50.655910+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2025-01-28T21:43:50.655910+00:00'
+[2025-01-28T21:44:24.242+0000] {subprocess.py:63} INFO - Tmp dir root location: /tmp
+[2025-01-28T21:44:24.243+0000] {subprocess.py:75} INFO - Running command: ['/bin/bash', '-c', 'docker exec consumer-daily python kafka_consumer_daily.py']
+[2025-01-28T21:44:24.254+0000] {subprocess.py:86} INFO - Output:
+[2025-01-28T21:44:25.442+0000] {subprocess.py:93} INFO - INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=kafka:9092 <connecting> [IPv4 ('172.18.0.4', 9092)]>: connecting to kafka:9092 [('172.18.0.4', 9092) IPv4]
+[2025-01-28T21:44:25.443+0000] {subprocess.py:93} INFO - INFO:kafka.conn:Probing node bootstrap-0 broker version
+[2025-01-28T21:44:25.444+0000] {subprocess.py:93} INFO - INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=kafka:9092 <connecting> [IPv4 ('172.18.0.4', 9092)]>: Connection complete.
+[2025-01-28T21:44:25.552+0000] {subprocess.py:93} INFO - INFO:kafka.conn:Broker version identified as 2.5.0
+[2025-01-28T21:44:25.553+0000] {subprocess.py:93} INFO - INFO:kafka.conn:Set configuration api_version=(2, 5, 0) to skip auto check_version requests on startup
+[2025-01-28T21:44:25.554+0000] {subprocess.py:93} INFO - INFO:kafka.consumer.subscription_state:Updating subscribed topics to: ('stock_prices_daily',)
+[2025-01-28T21:44:25.558+0000] {subprocess.py:93} INFO - INFO:kafka.cluster:Group coordinator for stock_pipeline_daily is BrokerMetadata(nodeId='coordinator-1001', host='kafka', port=9092, rack=None)
+[2025-01-28T21:44:25.559+0000] {subprocess.py:93} INFO - INFO:kafka.coordinator:Discovered coordinator coordinator-1001 for group stock_pipeline_daily
+[2025-01-28T21:44:25.560+0000] {subprocess.py:93} INFO - INFO:kafka.coordinator:Starting new heartbeat thread
+[2025-01-28T21:44:25.560+0000] {subprocess.py:93} INFO - INFO:kafka.coordinator.consumer:Revoking previously assigned partitions set() for group stock_pipeline_daily
+[2025-01-28T21:44:25.561+0000] {subprocess.py:93} INFO - INFO:kafka.conn:<BrokerConnection node_id=coordinator-1001 host=kafka:9092 <connecting> [IPv4 ('172.18.0.4', 9092)]>: connecting to kafka:9092 [('172.18.0.4', 9092) IPv4]
+[2025-01-28T21:44:25.562+0000] {subprocess.py:93} INFO - INFO:kafka.conn:<BrokerConnection node_id=coordinator-1001 host=kafka:9092 <connecting> [IPv4 ('172.18.0.4', 9092)]>: Connection complete.
+[2025-01-28T21:44:25.562+0000] {subprocess.py:93} INFO - INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=kafka:9092 <connected> [IPv4 ('172.18.0.4', 9092)]>: Closing connection.
+[2025-01-28T21:44:25.663+0000] {subprocess.py:93} INFO - INFO:kafka.coordinator:(Re-)joining group stock_pipeline_daily
+[2025-01-28T21:44:28.682+0000] {subprocess.py:93} INFO - INFO:kafka.coordinator:Elected group leader -- performing partition assignments using range
+[2025-01-28T21:44:28.686+0000] {subprocess.py:93} INFO - INFO:kafka.conn:<BrokerConnection node_id=1001 host=kafka:9092 <connecting> [IPv4 ('172.18.0.4', 9092)]>: connecting to kafka:9092 [('172.18.0.4', 9092) IPv4]
+[2025-01-28T21:44:28.688+0000] {subprocess.py:93} INFO - INFO:kafka.conn:<BrokerConnection node_id=1001 host=kafka:9092 <connecting> [IPv4 ('172.18.0.4', 9092)]>: Connection complete.
+[2025-01-28T21:44:28.701+0000] {subprocess.py:93} INFO - INFO:kafka.coordinator:Successfully joined group stock_pipeline_daily with generation 1
+[2025-01-28T21:44:28.703+0000] {subprocess.py:93} INFO - INFO:kafka.consumer.subscription_state:Updated partition assignment: [TopicPartition(topic='stock_prices_daily', partition=0)]
+[2025-01-28T21:44:28.704+0000] {subprocess.py:93} INFO - INFO:kafka.coordinator.consumer:Setting newly assigned partitions {TopicPartition(topic='stock_prices_daily', partition=0)} for group stock_pipeline_daily
+[2025-01-28T21:44:28.919+0000] {subprocess.py:93} INFO - ERROR:__main__:Meta Data is missing in the response
+[2025-01-28T21:44:28.920+0000] {subprocess.py:93} INFO - ERROR:__main__:Meta Data is missing in the response
+[2025-01-28T21:44:28.921+0000] {subprocess.py:93} INFO - ERROR:__main__:Meta Data is missing in the response
+[2025-01-28T21:44:33.928+0000] {subprocess.py:93} INFO - INFO:kafka.coordinator:Stopping heartbeat thread
+[2025-01-28T21:44:33.929+0000] {subprocess.py:93} INFO - INFO:kafka.coordinator:Leaving consumer group (stock_pipeline_daily).
+[2025-01-28T21:44:33.937+0000] {subprocess.py:93} INFO - INFO:kafka.conn:<BrokerConnection node_id=coordinator-1001 host=kafka:9092 <connected> [IPv4 ('172.18.0.4', 9092)]>: Closing connection.
+[2025-01-28T21:44:33.938+0000] {subprocess.py:93} INFO - INFO:kafka.conn:<BrokerConnection node_id=1001 host=kafka:9092 <connected> [IPv4 ('172.18.0.4', 9092)]>: Closing connection.
+[2025-01-28T21:44:33.939+0000] {subprocess.py:93} INFO - ERROR:kafka.consumer.fetcher:Fetch to node 1001 failed: Cancelled: <BrokerConnection node_id=1001 host=kafka:9092 <connected> [IPv4 ('172.18.0.4', 9092)]>
+[2025-01-28T21:44:33.939+0000] {subprocess.py:93} INFO - INFO:__main__:Consumer closed.
+[2025-01-28T21:44:34.081+0000] {subprocess.py:97} INFO - Command exited with return code 0
+[2025-01-28T21:44:34.114+0000] {taskinstance.py:1400} INFO - Marking task as SUCCESS. dag_id=stock_price_pipeline_daily, task_id=start_consumer_daily, execution_date=20250128T214350, start_date=20250128T214423, end_date=20250128T214434
+[2025-01-28T21:44:34.163+0000] {local_task_job_runner.py:228} INFO - Task exited with return code 0
+[2025-01-28T21:44:34.183+0000] {taskinstance.py:2784} INFO - 1 downstream tasks scheduled from follow-on schedule check

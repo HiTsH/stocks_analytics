@@ -1,90 +1,111 @@
 import os
 import json
-import psycopg2
+import pandas as pd
 from kafka import KafkaConsumer
 import logging
+from sqlalchemy import create_engine
+from sqlalchemy.dialects.postgresql import insert
+from tenacity import retry, stop_after_attempt, wait_exponential
 
 # Logging Configuration
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
-
+    
+# Constants
 KAFKA_BOOTSTRAP_SERVERS = "kafka:9092"
 DB_HOST = "postgres"
 DB_USER = os.getenv("POSTGRES_USER")
 DB_PASSWORD = os.getenv("POSTGRES_PASSWORD")
 DB_NAME = os.getenv("POSTGRES_DB")
 DB_PORT = "5432"
+SQLALCHEMY_DATABASE_URI = f"postgresql+psycopg2://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
 
+# Create SQLAlchemy engine
+engine = create_engine(SQLALCHEMY_DATABASE_URI)
+
+@retry(stop=stop_after_attempt(3), wait=wait_exponential(multiplier=1, min=4, max=10))
 def process_and_store(data):
+    if "Error Message" in data:
+        logger.error(f"API Error: {data.get('Error Message')}")
+        return
+    if "Note" in data:
+        logger.error(f"API Rate Limit: {data.get('Note')}")
+        return
+
+    symbol = data.get("symbol")
+    time_series = data.get("data")
+    if not symbol or not time_series:
+        logger.error("Invalid message format: missing symbol or data.")
+        return
+    
+    processed_data = []
+    for date_str, value in time_series.items():
+        raw_data = {date_str: value}
+        open_price = round(float(value.get("1. open")), 2)
+        high_price = round(float(value.get("2. high")), 2)
+        low_price = round(float(value.get("3. low")), 2)
+        close_price = round(float(value.get("4. close")), 2)
+        volume = int(value.get("5. volume"))
+
+        raw_data_json = json.dumps(raw_data)
+
+        processed_data.append({
+            'symbol': symbol,
+            'date': date_str,
+            'open_price': open_price,
+            'high_price': high_price,
+            'low_price': low_price,
+            'close_price': close_price,
+            'volume': volume,
+            'raw_data': raw_data_json
+        })
+    
+    df = pd.DataFrame(processed_data)
+    df['date'] = pd.to_datetime(df['date']).dt.date
+
     try:
-        with psycopg2.connect(
-            database=DB_NAME,
-            user=DB_USER,
-            password=DB_PASSWORD,
-            host=DB_HOST,
-            port=DB_PORT
-        ) as conn:
-            cursor = conn.cursor()
+        # Insert data into raw tables
+        df_raw = df[['symbol', 'date', 'open_price', 'high_price', 'low_price', 'close_price', 'volume', 'raw_data']]
+        df_raw.to_sql('stock_prices_daily', engine, schema='raw', if_exists='append', index=False, method='multi')
+        logger.info(f"Inserted {len(df_raw)} rows into raw table for symbol: {symbol}")
 
-            time_series = data.get("Time Series (Daily)")
-            symbol = data.get("Meta Data").get("2. Symbol")
-
-            for date, value in time_series.items():
-                raw_data = {date: value}
-                open_price = round(float(value.get("1. open")), 2)
-                high_price = round(float(value.get("2. high")), 2)
-                low_price = round(float(value.get("3. low")), 2)
-                close_price = round(float(value.get("4. close")), 2)
-                volume = int(value.get("5. volume"))
-
-                raw_data_json = json.dumps(raw_data)
-
-                # Insert into raw table
-                cursor.execute(
-                    '''
-                    INSERT INTO raw.stock_prices_daily (symbol, date, open_price, high_price, low_price, close_price, volume, raw_data)
-                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
-                    ON CONFLICT (symbol, date) DO NOTHING
-                    ''',
-                    (symbol, date, open_price, high_price, low_price, close_price, volume, raw_data_json)
-                )
-                logger.info(f"Inserted daily data for symbol: {symbol}, date: {date} in RAW TABLE")
-
-                # Insert into staging table
-                cursor.execute(
-                    '''
-                    INSERT INTO staging.stock_prices_daily (symbol, date, open_price, high_price, low_price, close_price, volume)
-                    VALUES (%s, %s, %s, %s, %s, %s, %s)
-                    ON CONFLICT (symbol, date) DO NOTHING
-                    ''',
-                    (symbol, date, open_price, high_price, low_price, close_price, volume)
-                )
-                logger.info(f"Inserted daily data for symbol: {symbol}, date: {date} in RAW TABLE")
-
-            conn.commit()
-            logger.info(f"Processed data for symbol: {symbol}")
-
-    except (Exception, psycopg2.Error) as error:
-        logger.error(f"Error while connecting to PostgreSQL: {error}")
+        # Insert data into staging tables
+        df_staging = df[['symbol', 'date', 'open_price', 'high_price', 'low_price', 'close_price', 'volume']]
+        df_staging.to_sql('stock_prices_daily', engine, schema='staging', if_exists='append', index=False, method='multi')
+        logger.info(f"Inserted {len(df_staging)} rows into staging table for symbol: {symbol}")
+    except Exception as e:
+        logger.error(f"Error connecting to database: {e}")
+        raise
 
 def main():
     consumer = KafkaConsumer(
         "stock_prices_daily",
         bootstrap_servers=KAFKA_BOOTSTRAP_SERVERS,
-        value_deserializer=lambda m: json.loads(m.decode('utf-8')),
+        value_deserializer=lambda m: json.loads(m.decode("utf-8")),
         auto_offset_reset="earliest",
-        enable_auto_commit=True,
-        group_id="stock_pipeline_daily"
+        enable_auto_commit=False,
+        group_id="stock_pipeline_daily",
     )
+
+    message_count = 0
 
     try:
         for message in consumer:
+            if message.value.get("terminate"):
+                logger.info(f"Received termination signal: {message.value}. Closing consumer.")
+                break
+            
             process_and_store(message.value)
-    except KeyboardInterrupt:
-        logger.info("Consumer stopped by user.")
-    finally:
-        consumer.close()
-        logger.info("Consumer closed.")
+            message_count += 1
+            consumer.commit()
 
+    except Exception as e:
+        logger.error(f"Error processing message: {str(e)}")
+    
+    finally:
+        logger.info("Consumer closing...")
+        consumer.close()
+        logger.info(f"Consumer closed. Total messages processed: {message_count}")
+        
 if __name__ == "__main__":
     main()
